@@ -1,11 +1,12 @@
 const { hashSenha, compararSenha } = require('../utils/bcrypt');
+
 const EmpresaRepo = require('../repository/EmpresaRepo');
 
 async function register(data) {
-    const { cnpj, email, senha, endereco } = data;
+    const { cnpj, email, nome, senha, endereco } = data;
     const senhaHash = await hashSenha(senha);
 
-    await EmpresaRepo.register({ cnpj, email, senha: senhaHash, endereco })
+    await EmpresaRepo.register({ cnpj, email, nome, senha: senhaHash, endereco })
 }
 
 async function login(data) {
