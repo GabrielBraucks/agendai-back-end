@@ -1,6 +1,6 @@
 const empresaService = require('../service/empresaService');
 
-async function cadastrarEmpresa(req, res) {
+async function registerEmpresa(req, res) {
   try {
     await empresaService.register(req.body);
 
@@ -26,4 +26,4 @@ async function loginEmpresa(req, res) {
   }
 }
 
-module.exports = { cadastrarEmpresa, loginEmpresa };
+module.exports = { registerEmpresa, loginEmpresa };
