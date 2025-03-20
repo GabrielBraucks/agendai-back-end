@@ -1,7 +1,5 @@
 # agendai-back-end
 
-## Como iniciar a API?
-
 ## Como Iniciar a API
 
 Para rodar a API localmente, siga os passos abaixo:
