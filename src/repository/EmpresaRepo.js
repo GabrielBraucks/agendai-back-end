@@ -8,6 +8,10 @@ class EmpresaRepo {
     static async getByEmail(email) {
         return await knex('Empresa').where({ email }).first();
     }
+
+    static async getById(id) {
+        return await knex('Empresa').where({ id }).first();
+    }
 }
 
 module.exports = EmpresaRepo;
