@@ -30,7 +30,7 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Registrar Empresa
 
-- **Rota:** `POST /register`
+- **Rota:** `POST empresa/register`
 - **Descrição:** Registra uma nova empresa no sistema.
 - **Corpo da requisição:**
   ```json
@@ -53,7 +53,7 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Login de Empresa
 
-- **Rota:** `POST /login`
+- **Rota:** `POST empresa/login`
 - **Descrição:** Realiza o login da empresa.
 - **Corpo da requisição:**
   ```json
@@ -81,7 +81,7 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Verificar Autenticação da Empresa (Comentado no diretório src/routes/empresaRoutes.js)
 
-- **Rota:** `GET /`
+- **Rota:** `GET empresa/`
 - **Descrição:** Verifica se a empresa está autenticada e retorna seu nome.
 - **Cabeçalho da requisição:**
   ```
