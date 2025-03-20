@@ -1,4 +1,5 @@
 const { hashSenha, compararSenha } = require('../utils/bcrypt');
+const { generateToken } = require('../utils/jwt');
 
 const EmpresaRepo = require('../repository/EmpresaRepo');
 
@@ -12,7 +13,6 @@ async function register(data) {
 async function login(data) {
     const { email, senha } = data;
     const empresa = await EmpresaRepo.getByEmail(email);
-    console.log(empresa);
 
     if (!empresa) {
         return [null, { statusCode: 401, error: 'Empresa não encontrada' }];
@@ -23,7 +23,14 @@ async function login(data) {
         return [null, { statusCode: 401, error: 'Senha incorreta' }];
     }
 
-    return [{ message: 'Login bem sucedido!' }, null]
+    const token = generateToken({ id: empresa.id, cnpj: empresa.cnpj, nome: empresa.nome, role: 'Empresa' });
+    return [{
+        message: 'Login bem sucedido!',
+        empresa: {
+            cnpj: empresa.cnpj, nome: empresa.nome, email: empresa.email, telefone: empresa.telefone
+        },
+        token
+    }, null]
 }
 
 module.exports = { register, login };
