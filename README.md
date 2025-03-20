@@ -4,30 +4,6 @@
 
 Para rodar a API localmente, siga os passos abaixo:
 
-1. **Instale as dependências**  
-
-   Antes de iniciar a API, é necessário instalar todas as dependências do projeto. Para isso, execute o seguinte comando no terminal, dentro da pasta do projeto:
-
-   \`\`\`sh
-   npm install
-   \`\`\`
-
-2. **Inicie a API**  
-
-   Após a instalação das dependências, você pode iniciar a API com o seguinte comando:
-
-   \`\`\`sh
-   npm start
-   \`\`\`
-
-   Esse comando inicia a aplicação utilizando o **nodemon**, uma ferramenta que monitora alterações no código e reinicia automaticamente o servidor sempre que um arquivo for modificado. Isso facilita o desenvolvimento, evitando a necessidade de reiniciar o servidor manualmente a cada mudança.
-
-Agora, a API estará rodando e pronta para ser testada!"
-
-## Como Iniciar a API
-
-Para rodar a API localmente, siga os passos abaixo:
-
 1. **Instale as dependências**
    
    Antes de iniciar a API, é necessário instalar todas as dependências do projeto. Para isso, execute o seguinte comando no terminal, dentro da pasta do projeto:
