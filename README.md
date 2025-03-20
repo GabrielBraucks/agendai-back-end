@@ -81,18 +81,18 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Verificar Autenticação da Empresa (Comentado no diretório src/routes/empresaRoutes.js)
 
-- **Rota:** \`GET /\`
+- **Rota:** `GET /`
 - **Descrição:** Verifica se a empresa está autenticada e retorna seu nome.
 - **Cabeçalho da requisição:**
-  \`\`\`
+  ```
   Authorization: Bearer <token_jwt>
-  \`\`\`
+  ```
 - **Resposta de sucesso:**
-  \`\`\`json
+  ```json
   {
-    \"mensagem\": \"Empresa: Nome da Empresa autenticada\"
+    "mensagem": "Empresa: Nome da Empresa autenticada"
   }
-  \`\`\`
+  ```
 - **Códigos de resposta:**
-  - \`200 OK\` – Empresa autenticada com sucesso.
-  - \`401 Unauthorized\` – Token inválido ou ausente.
+  - `200 OK` – Empresa autenticada com sucesso.
+  - `401 Unauthorized` – Token inválido ou ausente.
