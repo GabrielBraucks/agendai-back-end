@@ -30,7 +30,7 @@ async function createTables() {
         await db.schema.createTable('Funcionario', table => {
             table.integer('id').primary();
             table.string('cpf', 45).unique();
-            table.string('empresa', 45).references('cnpj').inTable('Empresa');
+            table.integer('idEmpresa').references('id').inTable('Empresa');
             table.string('nome', 45);
             table.string('email', 45);
             table.string('telefone', 45);
@@ -41,7 +41,7 @@ async function createTables() {
 
         await db.schema.createTable('Servico', table => {
             table.integer('id').primary();
-            table.string('empresa', 45).references('cnpj').inTable('Empresa');
+            table.integer('idEmpresa').references('id').inTable('Empresa');
             table.float('preco');
             table.string('nome', 45);
             table.string('duracao', 45);
@@ -58,8 +58,8 @@ async function createTables() {
 
         await db.schema.createTable('Agendamento', table => {
             table.integer('id').primary();
-            table.integer('idCliente').references('idCliente').inTable('Cliente');
-            table.integer('idServico').references('idServico').inTable('Servico');
+            table.integer('idCliente').references('id').inTable('Cliente');
+            table.integer('idServico').references('id').inTable('Servico');
             table.date('data');
             table.time('horario');
         });
