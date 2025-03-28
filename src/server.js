@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const empresaRoutes = require('./routes/empresaRoutes');
+const servicoRoutes = require('./routes/servicoRoutes');
 const app = express();
 
 // MIDDLEWARE
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.use('/empresa', empresaRoutes);
+app.use('/servicos', servicoRoutes);
 
 // Middleware global para erros inesperados
 app.use((err, req, res, next) => {
