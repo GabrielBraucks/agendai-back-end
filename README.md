@@ -79,6 +79,57 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
   - `401 Unauthorized` – Credenciais inválidas.
   - `500 Internal Server Error` – Erro ao fazer login.
 
+### Registrar Serviço
+
+- **Rota:** `POST servico/`
+- **Descrição:** Registra um novo serviço para uma empresa.
+- **Corpo da requisição:**
+  ```json
+  {
+    "nome": "Servico nome",
+    "preco": 12,
+    "duracao": "30 Minutos",
+    "categoria": "categoria"
+  }
+  ```
+- **Resposta de sucesso:**
+  ```json
+  {
+    "message": "Servico criado com sucesso!"
+  }
+  ```
+- **Códigos de resposta:**
+  - `201 Created` – Serviço registrado com sucesso.
+  - `401 Unauthorized` – Token inválido ou ausente.
+  - `500 Internal Server Error` – Erro ao criar serviço.
+
+### Listar Serviços
+
+- **Rota:** `GET servico/`
+- **Cabeçalho da requisição:**
+  ```
+  Authorization: Bearer <token_jwt>
+  ```
+- **Descrição:** Lista todos os serviços disponíveis.
+- **Resposta de sucesso:**
+  ```json
+  [
+    {
+      "id": 2,
+      "nome": "Servico nome",
+      "preco": 20,
+      "duracao": "30 Minutos",
+      "categoria": "categoria",
+      "empresa": "Nome da Empresa"
+    },
+  ...
+  ]
+  ``` 
+- **Códigos de resposta:**
+  - `200 OK` – Serviços listados com sucesso.
+  - `401 Unauthorized` – Token inválido ou ausente.
+  - `500 Internal Server Error` – Erro ao listar serviços.
+
 ### Verificar Autenticação da Empresa (Comentado no diretório src/routes/empresaRoutes.js)
 
 - **Rota:** `GET empresa/`
