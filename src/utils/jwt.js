@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = `${process.env.JWT_SECRET}`;
 
 function generateToken({ id, cnpj, nome, role }) {
-    return jwt.sign({ id, cnpj, nome, role }, jwtSecret, { expiresIn: '4h' });
+    return jwt.sign({ id: parseInt(id), cnpj, nome, role }, jwtSecret, { expiresIn: '4h' });
 }
 
 function authJwt(req, res, next) {
@@ -19,6 +19,7 @@ function authJwt(req, res, next) {
             return res.status(403).json({ error: 'Token inválido ou expirado.' });
         }
         
+        console.log(decoded);
         req.user = decoded; // Adiciona o usuário no request
         next();
     });

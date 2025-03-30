@@ -33,8 +33,13 @@ class ServicoRepo {
 
     static async getByIdEmpresa(idEmpresa) {
         return await knex('Servico')
-            .where({ idEmpresa: idEmpresa })
-            .select('*');
+            .where({ 'idEmpresa': 2  })
+            .select(
+                'Servico.id',
+                'Servico.nome',
+                'Servico.preco',
+                'Servico.duracao',
+                'Servico.categoria');
     }
 
     static async getOne(id) {

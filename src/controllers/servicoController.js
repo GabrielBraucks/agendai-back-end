@@ -52,14 +52,15 @@ async function deleteServico(req, res) {
 async function listServico(req, res) {
     try {
         // const result = await servicoService.list(); Estava errado
-        const result = await servicoService.listByIdEmpresa(req.user.id);
+        const result = await servicoService.listByIdEmpresa(Number(req.user.id));
+        console.log(result);
         res.status(201).json(result);
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao listar empresas' });
         }
     }
 }

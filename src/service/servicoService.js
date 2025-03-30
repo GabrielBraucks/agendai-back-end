@@ -16,7 +16,7 @@ async function list() {
 }
 
 async function listByIdEmpresa(idEmpresa) {
-    await ServicoRepo.getByIdEmpresa(idEmpresa);
+    return await ServicoRepo.getByIdEmpresa(idEmpresa);
 }
 
 async function getOne(id) {
