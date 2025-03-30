@@ -15,8 +15,12 @@ async function list() {
     return await ServicoRepo.getAll()
 }
 
+async function listByIdEmpresa(idEmpresa) {
+    await ServicoRepo.getByIdEmpresa(idEmpresa);
+}
+
 async function getOne(id) {
     return await ServicoRepo.getOne(id)
 }
 
-module.exports = { register, deletebyId, list, update, getOne };
+module.exports = { register, deletebyId, list, update, getOne, listByIdEmpresa };
