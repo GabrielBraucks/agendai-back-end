@@ -30,6 +30,18 @@ class ServicoRepo {
                 categoria
             });
     }
+
+    static async getByIdEmpresa(idEmpresa) {
+        return await knex('Servico')
+            .where({ 'idEmpresa': idEmpresa  })
+            .select(
+                'Servico.id',
+                'Servico.nome',
+                'Servico.preco',
+                'Servico.duracao',
+                'Servico.categoria');
+    }
+
     static async getOne(id) {
         return await knex('Servico')
             .join("Empresa", "idEmpresa", "=", "Empresa.id")
