@@ -13,11 +13,12 @@ async function createTables() {
         if (!(await db.schema.hasTable('Cliente'))) {
             await db.schema.createTable('Cliente', table => {
                 table.integer('id').primary();
-                table.string('cpf', 45);
-                table.string('email', 45);
+                table.string('cpf', 45).unique();
+                table.string('email', 45).unique();
                 table.string('nome', 45);
                 table.string('telefone', 45);
                 table.string('senha', 45);
+                table.integer('tipo').notNullable().defaultTo(0);
             });
         }
 
