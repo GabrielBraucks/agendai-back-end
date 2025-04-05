@@ -147,3 +147,92 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 - **Códigos de resposta:**
   - `200 OK` – Empresa autenticada com sucesso.
   - `401 Unauthorized` – Token inválido ou ausente.
+
+### (versão inicial) Registrar Cliente
+
+- **Rota:** `POST cliente/register`
+- **Descrição:** Registra um novo cliente.
+- **Corpo da requisição:**
+  ```json
+  {
+    "cpf": "85608041020",
+    "nome": "Jiji",
+    "email": "jiji@email.com",
+    "telefone": "1212341234",
+    "senha": "123123"
+  }
+  ```
+- **Resposta de sucesso:**
+  ```json
+  {
+    "message": "Cliente criado com sucesso!"
+  }
+  ```
+- **Códigos de resposta:**
+  - `201 Created` – Cliente registrado com sucesso.
+  - `401 Unauthorized` – Token inválido ou ausente.
+  - `500 Internal Server Error` – Erro ao registrar cliente.
+
+  ### (versão inicial) Login do Cliente
+
+- **Rota:** `POST cliente/login`
+- **Descrição:** Realiza o login do cliente.
+- **Corpo da requisição:**
+  ```json
+  {
+    "email": "cliente@email.com",
+    "senha": "senhaSegura"
+  }
+  ```
+- **Resposta de sucesso:**
+  ```json
+  {
+    "message": "Login bem sucedido!",
+    "cliente": {
+      "cpf": "08427231105",
+      "nome": "Jiji",
+      "email": "jiji@email.com",
+      "telefone": null
+    },
+    "token": "jwt_token_aqui",
+  }
+  ```
+- **Códigos de resposta:**
+  - `201 Created` – Login realizado com sucesso.
+  - `401 Unauthorized` – Credenciais inválidas.
+  - `500 Internal Server Error` – Erro ao fazer login.
+
+  ### (versão inicial) Consultar Cliente
+
+- **Rota:** `GET cliente/:id`
+- **Descrição:** Consulta os dados do cliente pelo id.
+- **Resposta de sucesso:**
+  ```json
+  {
+    "id": 1,
+    "cpf": "85608041020",
+    "email": "jiji@email.com",
+    "nome": "Jiji",
+    "telefone": null,
+    "tipo": 0
+  }
+  ```
+- **Códigos de resposta:**
+  - `201 Created` – Consulta realizada com sucesso.
+  - `401 Unauthorized` – Credenciais inválidas.
+  - `500 Internal Server Error` – Erro ao fazer login..
+
+   ### (versão inicial) Delete Cliente
+
+- **Rota:** `DELETE cliente/:id`
+- **Descrição:** Deleta o cliente pelo id.
+- **Resposta de sucesso:**
+  ```json
+  {
+	  "message": "Cliente deletado com sucesso!"
+  }
+  ```
+- **Códigos de resposta:**
+  - `201 Created` – Delete realizado com sucesso.
+  - `401 Unauthorized` – Credenciais inválidas.
+  - `500 Internal Server Error` – Erro ao tentar deletar cliente: dados incorretos ou cliente inexistente
