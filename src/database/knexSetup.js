@@ -63,11 +63,12 @@ async function createTables() {
         // Agenda_de_disponibilidade table
         if (!(await db.schema.hasTable('Agenda_de_disponibilidade'))) {
             await db.schema.createTable('Agenda_de_disponibilidade', table => {
-                table.timestamp('diasDisponives');
-                table.integer('idServico').references('id').inTable('Servico');
-                table.string('cpfFuncionario', 45).references('cpf').inTable('Funcionario');
-                table.timestamp('horariosDisponiveis');
-                table.primary(['diasDisponives', 'idServico', 'cpfFuncionario']);
+                    table.increments('id').primary();
+                    table.integer('idServico').references('id').inTable('Servico');
+                    table.string('cpfFuncionario', 45).references('cpf').inTable('Funcionario');
+                    table.integer('diaSemana').notNullable();
+                    table.time('horarioInicio').notNullable();
+                    table.time('horarioFim').notNullable();
             });
         }
 

@@ -26,4 +26,19 @@ async function loginEmpresa(req, res) {
   }
 }
 
-module.exports = { registerEmpresa, loginEmpresa };
+async function profileEmpresa(req, res) {
+  try {
+    const [ result, err ] = await empresaService.profile(req.user.id);
+
+    if (err) {
+      return res.status(err.statusCode).json(err);
+    }
+
+    return res.status(201).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao consultar conta' });
+  }
+}
+
+module.exports = { registerEmpresa, loginEmpresa, profileEmpresa };

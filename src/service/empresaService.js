@@ -33,4 +33,19 @@ async function login(data) {
     }, null]
 }
 
-module.exports = { register, login };
+async function profile(id) {
+    const empresa = await EmpresaRepo.getById(id);
+
+    if (!empresa) {
+        return [null, { statusCode: 401, error: 'Empresa não encontrada' }];
+    }
+
+    return [{
+        user: 'empresa',
+        empresa: {
+            cnpj: empresa.cnpj, nome: empresa.nome, email: empresa.email, telefone: empresa.telefone
+        },
+    }, null]
+}
+
+module.exports = { register, login, profile };

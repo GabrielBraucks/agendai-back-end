@@ -6,6 +6,7 @@ const cors = require('cors');
 const empresaRoutes = require('./routes/empresaRoutes');
 const servicoRoutes = require('./routes/servicoRoutes');
 const funcionarioRoutes = require('./routes/funcionarioRoutes');
+const agendaDisponibilidadeRoutes = require('./routes/agendaDisponibilidadeRoutes');
 const { createTables } = require('./database/knexSetup');
 const app = express();
 
@@ -19,8 +20,9 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.use('/empresa', empresaRoutes);
-app.use('/servicos', servicoRoutes);
-app.use('/funcionarios', funcionarioRoutes);
+app.use('/api/v0/servicos', servicoRoutes);
+app.use('/api/v0/funcionarios', funcionarioRoutes);
+app.use('/agenda_disponibilidade', agendaDisponibilidadeRoutes);
 
 // Middleware global para erros inesperados
 app.use((err, req, res, next) => {
