@@ -6,6 +6,8 @@ const cors = require('cors');
 const empresaRoutes = require('./routes/empresaRoutes');
 const servicoRoutes = require('./routes/servicoRoutes');
 const funcionarioRoutes = require('./routes/funcionarioRoutes');
+const clienteRoutes = require('./routes/clienteRoutes');
+
 const { createTables } = require('./database/knexSetup');
 const app = express();
 
@@ -21,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/empresa', empresaRoutes);
 app.use('/servicos', servicoRoutes);
 app.use('/funcionarios', funcionarioRoutes);
+app.use('/cliente', clienteRoutes);
 
 // Middleware global para erros inesperados
 app.use((err, req, res, next) => {
