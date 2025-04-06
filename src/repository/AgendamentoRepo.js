@@ -16,8 +16,23 @@ class AgendamentoRepo {
             .where('Empresa.id', idEmpresa)
             .select(
                 'Agendamento.*',
-                'Empresa.nome as empresa'
+                'Servico.nome as nomeServico',
+                'Empresa.nome as nomeEmpresa',
+                'Empresa.id as idEmpresa'
             );
+    }
+
+    static async getOne(id) {
+        return await knex('Agendamento')
+            .join('Servico', 'Agendamento.idServico', 'Servico.id')
+            .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .where('Agendamento.id', id)
+            .select(
+                'Agendamento.*',
+                'Servico.nome as nomeServico',
+                'Empresa.nome as nomeEmpresa',
+                'Empresa.id as idEmpresa'
+            ).first();
     }
 }
 

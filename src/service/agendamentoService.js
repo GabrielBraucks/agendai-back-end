@@ -15,6 +15,10 @@ async function getByIdEmpresa(idEmpresa) {
     return await AgendamentoRepo.getByIdEmpresa(idEmpresa);
 }
 
+async function getOne(id) {
+    return await AgendamentoRepo.getOne(id);
+}
+
 async function registerCliente({
     idServico, data, horario,
     cliente: {
@@ -34,4 +38,4 @@ async function registerCliente({
     return await AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario });
 }
 
-module.exports = { register, deleteById, getByIdEmpresa, registerCliente };
+module.exports = { register, deleteById, getByIdEmpresa, registerCliente, getOne };
