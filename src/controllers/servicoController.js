@@ -38,7 +38,7 @@ async function deleteServico(req, res) {
     try {
         const id = Number(req.params.id);
         await servicoService.deletebyId(id, req.user.id);
-        res.status(201).json({ message: 'Serviço criado com sucesso!' });
+        res.status(201).json({ message: 'Serviço deletado com sucesso!' });
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
@@ -52,7 +52,6 @@ async function deleteServico(req, res) {
 async function listServico(req, res) {
     try {
         const result = await servicoService.listByIdEmpresa(Number(req.params.idEmpresa));
-        console.log(result);
         res.status(201).json(result);
     } catch (error) {
         console.error(error);
