@@ -7,7 +7,7 @@ const ChangePassFuncionarioDTO = require('../dto/changePassFuncionarioDTO');
 async function registerFuncionario(req, res) {
     try {
         const dto = new RegisterFuncionarioDTO(req.body);
-        await funcionarioService.register({ ...dto, idEmpresa: req.user.id });
+        await funcionarioService.register({ ...dto, idEmpresa: Number(req.user.id) });
         res.status(201).json({ message: 'Funcionário criado com sucesso!' });
     } catch (error) {
         console.error(error);

@@ -51,7 +51,7 @@ async function deleteServico(req, res) {
 
 async function listServico(req, res) {
     try {
-        const result = await servicoService.listByIdEmpresa(Number(req.params.id));
+        const result = await servicoService.listByIdEmpresa(Number(req.params.idEmpresa));
         console.log(result);
         res.status(201).json(result);
     } catch (error) {
