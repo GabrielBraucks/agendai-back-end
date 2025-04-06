@@ -2,7 +2,7 @@ const knex = require('../database/knexSetup').db;
 
 class ClienteRepo {
     static async register({ cpf, email, nome, telefone, senha }) {
-        await knex('Cliente').insert({ cpf, email, nome, telefone, senha });
+        return await knex('Cliente').insert({ cpf, email, nome, telefone, senha });
     }
 
     static async deleteById(id) {
