@@ -27,7 +27,7 @@ async function login(data) {
     return [{
         message: 'Login bem sucedido!',
         empresa: {
-            cnpj: empresa.cnpj, nome: empresa.nome, email: empresa.email, telefone: empresa.telefone
+            id: empresa.id, cnpj: empresa.cnpj, nome: empresa.nome, email: empresa.email, telefone: empresa.telefone
         },
         token
     }, null]
