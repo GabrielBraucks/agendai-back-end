@@ -9,8 +9,16 @@ class AgendamentoRepo {
         return await knex('Agendamento').where({ id }).delete();
     }
 
-    // static async getByEmpresa(idEmpresa) {
-    //     return await knex('Agendamento')
-    //         .join
-    // }
+    static async getByIdEmpresa(idEmpresa) {
+        return await knex('Agendamento')
+            .join('Servico', 'Agendamento.idServico', 'Servico.id')
+            .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .where('Empresa.id', idEmpresa)
+            .select(
+                'Agendamento.*',
+                'Empresa.nome as empresa'
+            );
+    }
 }
+
+module.exports = AgendamentoRepo;

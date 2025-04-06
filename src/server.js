@@ -8,6 +8,8 @@ const servicoRoutes = require('./routes/servicoRoutes');
 const funcionarioRoutes = require('./routes/funcionarioRoutes');
 const agendaDisponibilidadeRoutes = require('./routes/agendaDisponibilidadeRoutes');
 const clienteRoutes = require('./routes/clienteRoutes');
+const agendamentoRoutes = require('./routes/agendamentoRoutes');
+
 const { createTables } = require('./database/knexSetup');
 const app = express();
 
@@ -25,6 +27,7 @@ app.use('/servicos', servicoRoutes);
 app.use('/funcionarios', funcionarioRoutes);
 app.use('/agenda_disponibilidade', agendaDisponibilidadeRoutes);
 app.use('/cliente', clienteRoutes);
+app.use('/agendamentos', agendamentoRoutes);
 
 // Middleware global para erros inesperados
 app.use((err, req, res, next) => {
