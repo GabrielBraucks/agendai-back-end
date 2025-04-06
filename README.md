@@ -85,7 +85,7 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Registrar Serviço
 
-- **Rota:** `POST servico/`
+- **Rota:** `POST servico/register`
 - **Descrição:** Registra um novo serviço para uma empresa.
 - **Corpo da requisição:**
   ```json
@@ -109,7 +109,7 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ### Listar Serviços
 
-- **Rota:** `GET servico/`
+- **Rota:** `GET servico/listarPelaEmpresa/:idEmpresa`
 - **Cabeçalho da requisição:**
   ```
   Authorization: Bearer <token_jwt>
