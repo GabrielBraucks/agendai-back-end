@@ -3,9 +3,9 @@ const NumberValidate = require("../validate/NumberValidate");
 const StringValidate = require("../validate/StringValidate");
 
 class ChangePassFuncionarioDTO {
-    constructor(servico) {
-        if((new StringValidate(servico.senha)).validate().result()){
-            this.senha = servico.senha;
+    constructor(funcionario) {
+        if((new StringValidate(funcionario.senha)).validate().result()){
+            this.senha = funcionario.senha;
         }
     }
 }
