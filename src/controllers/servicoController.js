@@ -12,7 +12,7 @@ async function registerServico(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao criar serviço.' });
         }
     }
 }
@@ -29,7 +29,7 @@ async function updateServico(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao atualizar serviço.' });
         }
     }
 }
@@ -44,15 +44,14 @@ async function deleteServico(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao deletar serviço.' });
         }
     }
 }
 
 async function listServico(req, res) {
     try {
-        // const result = await servicoService.list(); Estava errado
-        const result = await servicoService.listByIdEmpresa(Number(req.user.id));
+        const result = await servicoService.listByIdEmpresa(Number(req.params.idEmpresa));
         console.log(result);
         res.status(201).json(result);
     } catch (error) {
@@ -60,7 +59,7 @@ async function listServico(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao listar empresas' });
+            res.status(500).json({ error: 'Erro ao listar serviços.' });
         }
     }
 }
@@ -74,7 +73,7 @@ async function getOneServico(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao consultar serviço.' });
         }
     }
 }

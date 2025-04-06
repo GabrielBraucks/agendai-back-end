@@ -3,27 +3,27 @@ const NumberValidate = require("../validate/NumberValidate");
 const StringValidate = require("../validate/StringValidate");
 
 class RegisterFuncionarioDTO {
-    constructor(servico) {
-        if((new StringValidate(servico.nome)).validate().result()){
-            this.nome = servico.nome;
+    constructor(funcionario) {
+        if((new StringValidate(funcionario.nome)).validate().result()){
+            this.nome = funcionario.nome;
         }
-        if((new StringValidate(servico.cargo)).validate().result()){
-            this.cargo = servico.cargo;
+        if((new StringValidate(funcionario.cargo)).validate().result()){
+            this.cargo = funcionario.cargo;
         }
-        if((new CPFValidate(servico.cpf)).validate().result()){
-            this.cpf = servico.cpf;
+        if((new CPFValidate(funcionario.cpf)).validate().result()){
+            this.cpf = funcionario.cpf;
         }
-        if((new StringValidate(servico.email)).validate().result()){
-            this.email = servico.email;
+        if((new StringValidate(funcionario.email)).validate().result()){
+            this.email = funcionario.email;
         }
-        if((new StringValidate(servico.telefone)).validate().result()){
-            this.telefone = servico.telefone;
+        if((new StringValidate(funcionario.telefone)).validate().result()){
+            this.telefone = funcionario.telefone;
         }
-        if((new StringValidate(servico.senha)).validate().result()){
-            this.senha = servico.senha;
+        if((new StringValidate(funcionario.senha)).validate().result()){
+            this.senha = funcionario.senha;
         }
-        if((new StringValidate(servico.data_nasc)).validate().result()){
-            this.data_nasc = servico.data_nasc;
+        if((new StringValidate(funcionario.data_nasc)).validate().result()){
+            this.data_nasc = funcionario.data_nasc;
         }
     }
 }

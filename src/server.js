@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.use('/empresa', empresaRoutes);
-app.use('/api/v0/servicos', servicoRoutes);
-app.use('/api/v0/funcionarios', funcionarioRoutes);
+app.use('/servicos', servicoRoutes);
+app.use('/funcionarios', funcionarioRoutes);
 app.use('/agenda_disponibilidade', agendaDisponibilidadeRoutes);
 app.use('/cliente', clienteRoutes);
 

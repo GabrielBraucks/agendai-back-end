@@ -26,7 +26,9 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 
 ---
 
-## Endpoints da API
+# Endpoints da API
+
+## Empresa
 
 ### Registrar Empresa
 
@@ -78,6 +80,8 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
   - `201 Created` – Login realizado com sucesso.
   - `401 Unauthorized` – Credenciais inválidas.
   - `500 Internal Server Error` – Erro ao fazer login.
+
+## Serviços
 
 ### Registrar Serviço
 
@@ -147,6 +151,30 @@ Agora, a API estará rodando e pronta para ser testada! (No console deve aparece
 - **Códigos de resposta:**
   - `200 OK` – Empresa autenticada com sucesso.
   - `401 Unauthorized` – Token inválido ou ausente.
+
+## Funcionário
+
+### Registrar Funcionário
+
+- **Rota:** `POST funcionarios/register`
+- **Descrição:** Registra um novo funcionário.
+- **Corpo da requisição:**
+  ```json
+  {
+    "nome": "Jiji",
+    "cpf": "85608041020",
+    "cargo": "jiji@email.com",
+    "email": "jiji@email.com",
+    "telefone": "1212341234",
+    "senha": "123123",
+    "data": ""
+  }
+  ```
+- **Resposta de sucesso**
+  ```json
+  ```
+
+## Cliente
 
 ### (versão inicial) Registrar Cliente
 

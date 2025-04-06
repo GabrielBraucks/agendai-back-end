@@ -7,14 +7,14 @@ const ChangePassFuncionarioDTO = require('../dto/changePassFuncionarioDTO');
 async function registerFuncionario(req, res) {
     try {
         const dto = new RegisterFuncionarioDTO(req.body);
-        await funcionarioService.register({ ...dto, idEmpresa: req.user.id });
+        await funcionarioService.register({ ...dto, idEmpresa: Number(req.user.id) });
         res.status(201).json({ message: 'Funcionário criado com sucesso!' });
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao criar Funcionário: Dados errados ou funcionário já existe.' });
         }
     }
 }
@@ -31,7 +31,7 @@ async function updateFuncionario(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao atualizar Funcionário' });
         }
     }
 }
@@ -45,21 +45,21 @@ async function deleteFuncionario(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao deletar Funcionário.' });
         }
     }
 }
 
 async function listFuncionarios(req, res) {
     try {
-        const result = await funcionarioService.list(req.user.id);
+        const result = await funcionarioService.list(Number(req.params.idEmpresa));
         res.status(201).json(result);
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao listar funcionários.' });
         }
     }
 }
@@ -73,7 +73,7 @@ async function getOneFuncionario(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao consultar Funcionário.' });
         }
     }
 }
@@ -88,7 +88,7 @@ async function updatePasswordFuncionario(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar empresa' });
+            res.status(500).json({ error: 'Erro ao atualizar senha.' });
         }
     }
 }
