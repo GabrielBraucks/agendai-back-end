@@ -21,12 +21,12 @@ async function registerAgendamentoAndCliente(req, res) {
     try {
         const dto = new RegisterClienteAgendamentoDTO(req.body);
         await agendamentoService.registerCliente({ ...dto });
-        res.status(201).json({ message: 'Agendamento criado com sucesso!' });
+        res.status(201).json({ message: 'Agendamento e Cliente criados com sucesso!' });
     } catch (error) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao criar Agendamento.' });
+            res.status(500).json({ error: 'Erro ao criar Agendamento: dados errados ou o cliente já existe.' });
         }
     }
 }

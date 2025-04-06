@@ -27,9 +27,11 @@ async function registerCliente({
             email, cpf, nome, telefone, senha
         }
     }
+
     console.log(obj);
-    const novo_cliente = await ClienteRepo.register(obj.cliente);
-    console.log(novo_cliente);
+    const novo_cliente = (await ClienteRepo.register(obj.cliente))[0];
+    
+    return await AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario });
 }
 
 module.exports = { register, deleteById, getByIdEmpresa, registerCliente };
