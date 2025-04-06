@@ -7,6 +7,6 @@ const controller = require('../controllers/clienteController');
 routes.post('/register', controller.registerCliente);
 routes.post('/login', controller.loginCliente);
 routes.delete('/:id', authJwt, controller.deleteCliente);
-routes.get('/:id', authJwt, controller.getOneCliente);
+routes.get('/consultar/:id', authJwt, controller.getOneCliente);
 
 module.exports = routes;
