@@ -64,6 +64,20 @@ async function listFuncionarios(req, res) {
     }
 }
 
+async function listFuncionariosEmpresa(req, res) {
+    try {
+        const result = await funcionarioService.list(req.user.id);
+        res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        if (error.type === 'ValidationError') {
+            res.status(500).json({ error: 'Erro de validação', details: error.message });
+        } else {
+            res.status(500).json({ error: 'Erro ao listar funcionários.' });
+        }
+    }
+}
+
 async function getOneFuncionario(req, res) {
     try {
         const result = await funcionarioService.getOne(Number(req.params.id), req.user.id);
@@ -96,6 +110,7 @@ async function updatePasswordFuncionario(req, res) {
 module.exports = {
     registerFuncionario,
     listFuncionarios,
+    listFuncionariosEmpresa,
     deleteFuncionario,
     updateFuncionario,
     getOneFuncionario,

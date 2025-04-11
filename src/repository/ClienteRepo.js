@@ -13,6 +13,10 @@ class ClienteRepo {
         return await knex('Cliente').where({ email }).first();
     }
 
+    static async getByEmailAndEmpresa(email, idEmpresa) {
+        return await knex('Cliente').where({ email, idEmpresa }).first();
+    }
+
     // Para fazer o GetByEmpresa será necessário trabalhar os agendamentos
 
     static async getOne(id) {

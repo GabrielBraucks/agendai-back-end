@@ -63,6 +63,20 @@ async function listServico(req, res) {
     }
 }
 
+async function listServicoEmpresa(req, res) {
+    try {
+        const result = await servicoService.listByIdEmpresa(req.user.id);
+        res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        if (error.type === 'ValidationError') {
+            res.status(500).json({ error: 'Erro de validação', details: error.message });
+        } else {
+            res.status(500).json({ error: 'Erro ao listar serviços.' });
+        }
+    }
+}
+
 async function getOneServico(req, res) {
     try {
         const result = await servicoService.getOne(Number(req.params.id));
@@ -81,6 +95,7 @@ module.exports = {
     registerServico,
     deleteServico,
     listServico,
+    listServicoEmpresa,
     updateServico,
     getOneServico
 };
