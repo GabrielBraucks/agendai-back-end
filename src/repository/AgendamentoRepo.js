@@ -17,9 +17,16 @@ class AgendamentoRepo {
             .select(
                 'Agendamento.*',
                 'Servico.nome as nomeServico',
+                'Servico.duracao as duracao',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
             );
+    }
+    static async getByIdClienteAndPeriodo(idCliente, data, horarioInicio, horarioFim) {
+        return await knex('Agendamento')
+            .where('data', '>=', data)
+            .andWhereBetween('horario', [horarioInicio, horarioFim])
+            .select()
     }
 
     static async getOne(id) {

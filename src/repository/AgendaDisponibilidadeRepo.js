@@ -9,43 +9,44 @@ class AgendaDisponibilidadeRepo {
         return await knex('Funcionario').where({ id, idEmpresa }).delete();
     }
     static async getAll() {
-        return await knex('Funcionario')
-            .join("Empresa", "idEmpresa", "=", "Empresa.id")
+        return await knex('Agenda_de_disponibilidade')
+            .join("Servico", "idServico", "=", "Servico.id")
+            .join("Funcionario", "cpfFuncionario", "=", "Funcionario.cpf")
             .select(
-                'Funcionario.id',
+                'Servico.id as idServico',
+                'Servico.nome as nomeServico',
                 'Funcionario.cpf',
                 'Funcionario.nome',
-                'Funcionario.email',
-                'Funcionario.telefone',
-                'Funcionario.data_nasc',
-                'Funcionario.cargo',
-                'Empresa.nome as empresa');
+                'Agenda_de_disponibilidade.email',
+                'Agenda_de_disponibilidade.horarioInicio',
+                'Agenda_de_disponibilidade.horarioFim',
+                'Agenda_de_disponibilidade.diaSemana',);
     }
     static async getByEmpresa(idEmpresa) {
-        return await knex('Funcionario')
-            .join("Empresa", "idEmpresa", "=", "Empresa.id")
-            .where('idEmpresa', idEmpresa)
+        return await knex('Agenda_de_disponibilidade')
+            .join("Servico", "idServico", "=", "Servico.id")
+            .join("Funcionario", "cpfFuncionario", "=", "Funcionario.cpf")
+            .where({ "Funcionario.idEmpresa": idEmpresa })
             .select(
-                'Funcionario.id',
+                'Agenda_de_disponibilidade.id',
+                'Servico.id as idServico',
+                'Servico.nome as nomeServico',
                 'Funcionario.cpf',
                 'Funcionario.nome',
-                'Funcionario.email',
-                'Funcionario.telefone',
-                'Funcionario.data_nasc',
-                'Funcionario.cargo',
-                'Empresa.nome as empresa');
+                'Agenda_de_disponibilidade.horarioInicio',
+                'Agenda_de_disponibilidade.horarioFim',
+                'Agenda_de_disponibilidade.diaSemana',);
     }
 
-    static async updateByIdAndIdEmpresa({ id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo }) {
-        return await knex('Funcionario')
-            .where({ idEmpresa, id })
+    static async updateByIdAndIdEmpresa({ id, cpfFuncionario, horarioInicio, horarioFim, diaSemana, idServico }) {
+        return await knex('Agenda_de_disponibilidade')
+            .where({ id })
             .update({
-                cpf,
-                nome,
-                email,
-                telefone,
-                data_nasc,
-                cargo,
+                cpfFuncionario,
+                horarioInicio,
+                horarioFim,
+                diaSemana,
+                idServico
             });
     }
 
@@ -57,19 +58,21 @@ class AgendaDisponibilidadeRepo {
             });
     }
 
-    static async getOne(id, idEmpresa) {
-        return await knex('Funcionario')
-            .join("Empresa", "idEmpresa", "=", "Empresa.id")
-            .where({ "Funcionario.id":id, idEmpresa })
+    static async getOne(id) {
+        return await knex('Agenda_de_disponibilidade')
+            .join("Servico", "idServico", "=", "Servico.id")
+            .join("Funcionario", "cpfFuncionario", "=", "Funcionario.cpf")
+            .where({ "Agenda_de_disponibilidade.id":id })
             .select(
-                'Funcionario.id',
+                'Agenda_de_disponibilidade.id',
+                'Servico.id as idServico',
+                'Servico.idEmpresa',
+                'Servico.nome as nomeServico',
                 'Funcionario.cpf',
                 'Funcionario.nome',
-                'Funcionario.email',
-                'Funcionario.telefone',
-                'Funcionario.data_nasc',
-                'Funcionario.cargo',
-                'Empresa.nome as empresa').first();
+                'Agenda_de_disponibilidade.horarioInicio',
+                'Agenda_de_disponibilidade.horarioFim',
+                'Agenda_de_disponibilidade.diaSemana').first();
     }
 }
 
