@@ -1,7 +1,7 @@
 const ClienteInternoRepo = require('../repository/ClienteInternoRepo');
 
 async function register({ cpf, email, nome, telefone, idEmpresa }) {
-    const existCliente =  await ClienteInternoRepo.getByEmpresaAndCpfOrEmail({cpf, email, idEmpresa});
+    const existCliente = await ClienteInternoRepo.getByEmpresaAndCpfOrEmail({ cpf, email, idEmpresa });
     if (existCliente.length) {
         throw new Error('CPF ou email já cadastrado');
     }

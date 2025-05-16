@@ -1,5 +1,6 @@
 const AgendamentoRepo = require('../repository/AgendamentoRepo');
 const ClienteRepo = require('../repository/ClienteRepo');
+const ServicoRepo = require('../repository/ServicoRepo');
 
 async function register({ email, idServico, data, horario }) {
     const idCliente = await ClienteRepo.getByEmail(email);
@@ -32,10 +33,15 @@ async function registerCliente({
         }
     }
 
-    // console.log(obj);
+    const servico = await ServicoRepo.getOne(idServico);
+
+    if (!servico) {
+        return [null, { statusCode: 401, error: 'Serviço não encontrado' }];
+    }
+
     const novo_cliente = (await ClienteRepo.register(obj.cliente))[0];
-    
-    return await AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario });
+
+    return await [AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario }), null];
 }
 
 module.exports = { register, deleteById, getByIdEmpresa, registerCliente, getOne };

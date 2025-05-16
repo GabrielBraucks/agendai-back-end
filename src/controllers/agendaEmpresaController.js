@@ -20,7 +20,7 @@ async function listAgendaEmpresa(req, res) {
         if (error.type === 'ValidationError') {
             res.status(500).json({ error: 'Erro de validação', details: error.message });
         } else {
-            res.status(500).json({ error: 'Erro ao procurar cliente: dados incorretos ou cliente inexistente' });
+            res.status(500).json({ error: 'Erro ao procurar empresa: dados incorretos ou empresa inexistente' });
         }
     }
 }

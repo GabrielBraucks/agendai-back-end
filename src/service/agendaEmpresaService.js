@@ -35,9 +35,9 @@ async function list(idEmpresa) {
         dataHoraFinal.setMinutes(dataHoraFinal.getMinutes() + duracao.minutos);
         const horaI = dataHoraInicio.toISOString().split('T')[1].split('.')[0];
         const horaF = dataHoraFinal.toISOString().split('T')[1].split('.')[0];
-        return {
-            
-        }
+        // return {
+
+        // }
     })
     return agendamentos;
 
