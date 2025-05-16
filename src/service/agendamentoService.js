@@ -3,7 +3,7 @@ const ClienteRepo = require('../repository/ClienteRepo');
 
 async function register({ email, idServico, data, horario }) {
     const idCliente = await ClienteRepo.getByEmail(email);
-    console.log(idCliente);
+    // console.log(idCliente);
     await AgendamentoRepo.register({ idCliente: idCliente.id, idServico, data, horario });
 }
 
@@ -32,7 +32,7 @@ async function registerCliente({
         }
     }
 
-    console.log(obj);
+    // console.log(obj);
     const novo_cliente = (await ClienteRepo.register(obj.cliente))[0];
     
     return await AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario });
