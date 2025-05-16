@@ -1,7 +1,7 @@
-const NumberValidate = require("../validate/NumberValidate");
-const StringValidate = require("../validate/StringValidate");
+import { StringValidate } from '../validate/StringValidate.js'
+import { NumberValidate } from '../validate/NumberValidate.js'
 
-class RegisterAgendamentoDTO {
+export class RegisterAgendamentoDTO {
     constructor(agendamento) {
         if((new StringValidate(agendamento.email)).validate().result()){
             this.email = agendamento.email;
@@ -17,4 +17,3 @@ class RegisterAgendamentoDTO {
         }
     }
 }
-module.exports = RegisterAgendamentoDTO;

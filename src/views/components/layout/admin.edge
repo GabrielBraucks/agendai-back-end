@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    @if ($slots.meta)
+    {{{ await $slots.meta() }}}
+    @endif
+    @stack('js')
+    @stack('css')
+</head>
+
+<body>
+    <div class="drawer lg:drawer-open">
+        <input id="dashboard-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar -->
+            <div class="w-full navbar bg-base-100 border-black border-b-1">
+                <div class="flex-none lg:hidden">
+                    <label for="dashboard-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1 px-2 mx-2 text-xl font-bold">Dashboard</div>
+            </div>
+
+            <!-- Page content here -->
+            {{{ await $slots.main() }}}
+        </div>
+
+        <div class="drawer-side">
+            <label for="dashboard-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-64 min-h-full bg-base-200 text-base-content border-black border-r-1">
+                <h2 class="text-xl font-bold mb-4">Menu</h2>
+                <li><a href="/empresa" class="active">🏠 Dashboard</a></li>
+                <li><a href="/empresa/funcionarios">👤 Funcionarios</a></li>
+                <li><a href="/empresa/servicos">📦 Serviços</a></li>
+                <li><a href="/empresa/clientes">👥 Clientes</a></li>
+                <li><a href="/empresa/agendamento">🗓️ Agendamento</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+@layout.admin({ title: "Welcome page title" })
+@slot('meta')
+<meta name="description" content="A welcome page made with EdgeJS">
+<style>
+    .calendar-container {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+    }
+
+    .calendar-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .calendar-day {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+
+    .calendar-day:hover:not(.disabled) {
+        background-color: #e2e8f0;
+    }
+
+    .calendar-day.selected {
+        background-color: #4299e1;
+        color: white;
+    }
+
+    .calendar-day.disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    .time-slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .time-slot {
+        padding: 8px;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid #e2e8f0;
+    }
+
+    .time-slot:hover:not(.booked) {
+        background-color: #e2e8f0;
+    }
+
+    .time-slot.selected {
+        background-color: #4299e1;
+        color: white;
+    }
+
+    .time-slot.booked {
+        background-color: #cbd5e0;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+</style>
+@endslot
+
+@slot('main')
+<div class="container mx-auto p-4">
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title text-2xl mb-6">Agende seu serviço</h2>
+
+            <div class="form-control mb-6">
+                <label class="label">
+                    <span class="label-text">Selecione o serviço:</span>
+                </label>
+                <select id="serviceSelect" class="select select-bordered w-full">
+                    <option value="" disabled selected>Escolha um serviço</option>
+                    <option value="1">Corte de Cabelo - R$50,00</option>
+                    <option value="2">Manicure - R$35,00</option>
+                    <option value="3">Pedicure - R$40,00</option>
+                    <option value="4">Massagem - R$120,00</option>
+                    <option value="5">Limpeza de Pele - R$80,00</option>
+                </select>
+            </div>
+
+            <div id="datePicker" class="mb-6">
+                <label class="label">
+                    <span class="label-text">Selecione a data:</span>
+                </label>
+                <div class="flex justify-between items-center mb-4">
+                    <button id="prevMonth" class="btn btn-ghost"><span class="text-xl">&larr;</span></button>
+                    <h3 id="currentMonth" class="text-xl font-bold">Maio 2025</h3>
+                    <button id="nextMonth" class="btn btn-ghost"><span class="text-xl">&rarr;</span></button>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div>Dom</div>
+                        <div>Seg</div>
+                        <div>Ter</div>
+                        <div>Qua</div>
+                        <div>Qui</div>
+                        <div>Sex</div>
+                        <div>Sáb</div>
+                    </div>
+                    <div id="calendar" class="calendar">
+                        <!-- Dias do calendário serão inseridos aqui via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="timeSlotContainer" class="mb-6 hidden">
+                <label class="label">
+                    <span class="label-text">Selecione o horário:</span>
+                </label>
+                <div id="timeSlots" class="time-slots">
+                    <!-- Horários serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+
+            <div id="clientInfoContainer" class="mb-6 hidden">
+                <label class="label">
+                    <span class="label-text">Seu e-mail:</span>
+                </label>
+                <input type="email" id="clientEmail" placeholder="seuemail@exemplo.com"
+                    class="input input-bordered w-full" />
+            </div>
+
+            <div class="card-actions justify-end mt-6">
+                <button id="bookButton" class="btn btn-primary hidden">Agendar Serviço</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast toast-end" id="toastContainer">
+        <!-- Toast notifications will be added here via JavaScript -->
+    </div>
+</div>
+<script src="/js/empresa_agendamento_script.js"></script>
+
+@endslot
+
+@end

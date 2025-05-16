@@ -1,5 +1,5 @@
-const knex = require('knex');
-const db = knex({
+import knex from 'knex';
+export const db = knex({
     client: 'sqlite3',
     connection: {
         filename: './database.sqlite'
@@ -7,25 +7,13 @@ const db = knex({
     useNullAsDefault: true
 });
 
-async function createTables() {
+export async function createTables() {
     try {
-        // Cliente table
-        if (!(await db.schema.hasTable('Cliente'))) {
-            await db.schema.createTable('Cliente', table => {
-                table.integer('id').primary();
-                table.string('cpf', 45).unique();
-                table.string('email', 45).unique();
-                table.string('nome', 45);
-                table.string('telefone', 45);
-                table.string('senha', 45);
-                table.integer('tipo').notNullable().defaultTo(0);
-            });
-        }
-
         // Empresa table
         if (!(await db.schema.hasTable('Empresa'))) {
             await db.schema.createTable('Empresa', table => {
                 table.integer('id').primary();
+                table.text('perfil');
                 table.string('cnpj', 45).unique();
                 table.string('nome', 45).unique();
                 table.string('email', 45).unique();
@@ -34,10 +22,26 @@ async function createTables() {
             });
         }
 
+        // Cliente table
+        if (!(await db.schema.hasTable('Cliente'))) {
+            await db.schema.createTable('Cliente', table => {
+                table.integer('id').primary();
+                table.string('cpf', 45).unique();
+                table.string('email', 45).unique();
+                table.integer('idEmpresa').references('id').inTable('Empresa');
+                table.string('nome', 45);
+                table.string('telefone', 45);
+                table.text('senha');
+                table.integer('tipo').notNullable().defaultTo(0);
+            });
+        }
+
+
         // Funcionario table
         if (!(await db.schema.hasTable('Funcionario'))) {
             await db.schema.createTable('Funcionario', table => {
                 table.integer('id').primary();
+                table.text('perfil');
                 table.string('cpf', 45).unique();
                 table.integer('idEmpresa').references('id').inTable('Empresa');
                 table.string('nome', 45);
@@ -54,9 +58,11 @@ async function createTables() {
             await db.schema.createTable('Servico', table => {
                 table.integer('id').primary();
                 table.integer('idEmpresa').references('id').inTable('Empresa');
+                table.integer('idFuncionario').references('id').inTable('Funcionario');
+                table.text('foto');
                 table.float('preco');
                 table.string('nome', 45);
-                table.string('duracao', 45);
+                table.integer('duracao', 45);
                 table.string('categoria', 45);
             });
         }
@@ -112,7 +118,5 @@ async function createTables() {
         console.error('Erro ao criar tabelas:', error);
     }
 }
-
-module.exports = { db, createTables };
 
 // createTables();

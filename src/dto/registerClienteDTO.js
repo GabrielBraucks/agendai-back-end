@@ -1,8 +1,7 @@
-const CPFValidate = require("../validate/CPFValidate");
-const NumberValidate = require("../validate/NumberValidate");
-const StringValidate = require("../validate/StringValidate");
+import { CPFValidate } from '../validate/CPFValidate.js'
+import { StringValidate } from '../validate/StringValidate.js'
 
-class RegisterClienteDTO {
+export class RegisterClienteDTO {
     constructor(cliente) {
         if((new StringValidate(cliente.nome)).validate().result()){
             this.nome = cliente.nome;
@@ -21,4 +20,3 @@ class RegisterClienteDTO {
         }
     }
 }
-module.exports = RegisterClienteDTO;

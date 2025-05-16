@@ -1,13 +1,13 @@
-const express = require('express');
-const { authJwt } = require('../utils/jwt');
+import { Router } from 'express';
+import { authJwt } from '../utils/jwt.js';
+import { deleteFuncionario, getOneFuncionario, listFuncionarios, registerFuncionario, updateFuncionario, updatePasswordFuncionario } from '../controllers/funcionarioController.js';
 
-const routes = express.Router();
-const controller = require('../controllers/funcionarioController');
-routes.post('/register', authJwt, controller.registerFuncionario);
-routes.get('/listarPelaEmpresa/:idEmpresa', authJwt, controller.listFuncionarios);
-routes.put('/:id', authJwt, controller.updateFuncionario);
-routes.put('/:id/senha', authJwt, controller.updatePasswordFuncionario);
-routes.delete('/:id', authJwt, controller.deleteFuncionario);
-routes.get('/consultar/:id', authJwt, controller.getOneFuncionario);
+const routes = Router();
+routes.post('/register', authJwt, registerFuncionario);
+routes.get('/listarPelaEmpresa/:idEmpresa', authJwt, listFuncionarios);
+routes.put('/:id', authJwt, updateFuncionario);
+routes.put('/:id/senha', authJwt, updatePasswordFuncionario);
+routes.delete('/:id', authJwt, deleteFuncionario);
+routes.get('/consultar/:id', authJwt, getOneFuncionario);
 
-module.exports = routes;
+export default routes;

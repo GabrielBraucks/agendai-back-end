@@ -1,13 +1,13 @@
-const express = require('express');
-const { authJwt } = require('../utils/jwt');
+import { Router } from 'express';
+import { authJwt } from '../utils/jwt.js';
+import { registerAgendamento } from '../controllers/agendamentoController.js';
 
-const routes = express.Router();
-const { registerAgendamento, registerAgendamentoAndCliente, deleteAgendamentoById, getOneAgendamento, listAgendamentos } = require('../controllers/agendamentoController');
+const routes = Router();
 
 routes.post('/register', authJwt, registerAgendamento);
-routes.post('/registerCliente', authJwt, registerAgendamentoAndCliente);
-routes.delete('/:id', authJwt, deleteAgendamentoById);
-routes.get('/listarPelaEmpresa/:idEmpresa', listAgendamentos);
-routes.get('/consultar/:id', getOneAgendamento);
+// routes.post('/registerCliente', authJwt, registerAgendamentoAndCliente);
+// routes.delete('/:id', authJwt, deleteAgendamentoById);
+// routes.get('/listarPelaEmpresa/:idEmpresa', listAgendamentos);
+// routes.get('/consultar/:id', getOneAgendamento);
 
-module.exports = routes;
+export default routes;

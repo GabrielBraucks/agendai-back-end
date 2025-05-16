@@ -1,8 +1,10 @@
-const knex = require('../database/knexSetup').db;
+import { db } from "../database/knexSetup.js";
 
-class FuncionarioRepo {
-    static async register({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha }) {
-        await knex('Funcionario').insert({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha });
+const knex = db;
+
+export class FuncionarioRepo {
+    static async register({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha, perfil }) {
+        return await knex('Funcionario').insert({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha, perfil }).returning();
     }
 
     static async deleteById(id, idEmpresa) {
@@ -27,6 +29,7 @@ class FuncionarioRepo {
             .where('idEmpresa', idEmpresa)
             .select(
                 'Funcionario.id',
+                'Funcionario.perfil',
                 'Funcionario.cpf',
                 'Funcionario.nome',
                 'Funcionario.email',
@@ -36,7 +39,7 @@ class FuncionarioRepo {
                 'Empresa.nome as empresa');
     }
 
-    static async updateByIdAndIdEmpresa({ id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo }) {
+    static async updateByIdAndIdEmpresa({ id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, perfil }) {
         return await knex('Funcionario')
             .where({ idEmpresa, id })
             .update({
@@ -46,6 +49,7 @@ class FuncionarioRepo {
                 telefone,
                 data_nasc,
                 cargo,
+                perfil
             });
     }
 
@@ -72,5 +76,3 @@ class FuncionarioRepo {
                 'Empresa.nome as empresa').first();
     }
 }
-
-module.exports = FuncionarioRepo;

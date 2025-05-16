@@ -1,10 +1,8 @@
-const funcionarioService = require('../service/funcionarioService');
+import * as funcionarioService from '../service/funcionarioService.js';
+import {RegisterFuncionarioDTO} from '../dto/registerFuncionarioDTO.js';
+import {UpdateFuncionarioDTO} from '../dto/updateFuncionarioDTO.js';
 
-const RegisterFuncionarioDTO = require("../dto/registerFuncionarioDTO");
-const UpdateFuncionarioDTO = require('../dto/updateFuncionarioDTO');
-const ChangePassFuncionarioDTO = require('../dto/changePassFuncionarioDTO');
-
-async function registerFuncionario(req, res) {
+export async function registerFuncionario(req, res) {
     try {
         const dto = new RegisterFuncionarioDTO(req.body);
         await funcionarioService.register({ ...dto, idEmpresa: Number(req.user.id) });
@@ -19,7 +17,7 @@ async function registerFuncionario(req, res) {
     }
 }
 
-async function updateFuncionario(req, res) {
+export async function updateFuncionario(req, res) {
     try {
         const dto = new UpdateFuncionarioDTO(req.body);
         const id = Number(req.params.id);
@@ -36,7 +34,7 @@ async function updateFuncionario(req, res) {
     }
 }
 
-async function deleteFuncionario(req, res) {
+export async function deleteFuncionario(req, res) {
     try {
         await funcionarioService.deleteById(Number(req.params.id), req.user.id);
         res.status(201).json({ message: 'Funcionário deletado com sucesso!' });
@@ -50,7 +48,7 @@ async function deleteFuncionario(req, res) {
     }
 }
 
-async function listFuncionarios(req, res) {
+export async function listFuncionarios(req, res) {
     try {
         const result = await funcionarioService.list(Number(req.params.idEmpresa));
         res.status(201).json(result);
@@ -64,7 +62,7 @@ async function listFuncionarios(req, res) {
     }
 }
 
-async function getOneFuncionario(req, res) {
+export async function getOneFuncionario(req, res) {
     try {
         const result = await funcionarioService.getOne(Number(req.params.id), req.user.id);
         res.status(201).json(result);
@@ -78,7 +76,7 @@ async function getOneFuncionario(req, res) {
     }
 }
 
-async function updatePasswordFuncionario(req, res) {
+export async function updatePasswordFuncionario(req, res) {
     try {
         const { senha } = new ChangePassFuncionarioDTO(req.body);
         await funcionarioService.changePass(Number(req.params.id), req.user.id, senha);
@@ -92,12 +90,3 @@ async function updatePasswordFuncionario(req, res) {
         }
     }
 }
-
-module.exports = {
-    registerFuncionario,
-    listFuncionarios,
-    deleteFuncionario,
-    updateFuncionario,
-    getOneFuncionario,
-    updatePasswordFuncionario
-};

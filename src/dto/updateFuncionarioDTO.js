@@ -1,14 +1,16 @@
-const CPFValidate = require("../validate/CPFValidate");
-const NumberValidate = require("../validate/NumberValidate");
-const StringValidate = require("../validate/StringValidate");
+import {CPFValidate} from "../validate/CPFValidate.js";
+import {StringValidate} from "../validate/StringValidate.js";
 
-class UpdateFuncionarioDTO {
+export class UpdateFuncionarioDTO {
     constructor(funcionario) {
         if((new StringValidate(funcionario.nome)).validate().result()){
             this.nome = funcionario.nome;
         }
         if((new StringValidate(funcionario.cargo)).validate().result()){
             this.cargo = funcionario.cargo;
+        }
+        if((new StringValidate(funcionario.perfil)).validate().result()){
+            this.perfil = funcionario.perfil;
         }
         if((new CPFValidate(funcionario.cpf)).validate().result()){
             this.cpf = funcionario.cpf;
@@ -24,4 +26,3 @@ class UpdateFuncionarioDTO {
         }
     }
 }
-module.exports = UpdateFuncionarioDTO;

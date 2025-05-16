@@ -1,13 +1,14 @@
-const express = require('express');
-const { authJwt } = require('../utils/jwt');
+import { Router } from 'express';
+import { authJwt } from '../utils/jwt.js';
+import { loginEmpresa, profileEmpresa, registerEmpresa,registerAutoEmpresa } from '../controllers/empresaController.js';
 
-const routes = express.Router();
-const { registerEmpresa, loginEmpresa, profileEmpresa } = require('../controllers/empresaController');
+const routes = Router();
 
 routes.post('/register', registerEmpresa);
+routes.post('/register/auto', registerAutoEmpresa);
 routes.post('/login', loginEmpresa);
 routes.get('/profile', authJwt, profileEmpresa);
 
 // routes.get('/', authJwt, (req, res) => { res.json({ mensagem: `Empresa: ${req.user.nome} autenticada` }) });
 
-module.exports = routes;
+export default routes;

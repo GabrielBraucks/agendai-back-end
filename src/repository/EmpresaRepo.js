@@ -1,8 +1,10 @@
-const knex = require('../database/knexSetup').db;
+import { db } from "../database/knexSetup.js";
 
-class EmpresaRepo {
-    static async register({ cnpj, email, nome, senha, endereco }) {
-        await knex('Empresa').insert({ cnpj, email, nome, senha, endereco });
+const knex = db;
+
+export class EmpresaRepo {
+    static async register({ cnpj, email, nome, senha, endereco, perfil }) {
+        return await knex('Empresa').insert({ cnpj, email, nome, senha, endereco, perfil }).returning();
     }
 
     static async getByEmail(email) {
@@ -13,5 +15,3 @@ class EmpresaRepo {
         return await knex('Empresa').where({ id }).first();
     }
 }
-
-module.exports = EmpresaRepo;

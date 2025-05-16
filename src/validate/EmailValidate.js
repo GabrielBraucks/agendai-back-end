@@ -1,4 +1,4 @@
-class EmailValidate {
+export class EmailValidate {
     constructor(email) {
         this.email = email;
         this.isValid = true;
@@ -43,5 +43,3 @@ class EmailValidate {
         return this.isValid;
     }
 }
-
-module.exports = EmailValidate;

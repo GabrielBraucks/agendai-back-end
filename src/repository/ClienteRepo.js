@@ -1,12 +1,22 @@
-const knex = require('../database/knexSetup').db;
+import { db } from "../database/knexSetup.js";
 
-class ClienteRepo {
-    static async register({ cpf, email, nome, telefone, senha }) {
-        return await knex('Cliente').insert({ cpf, email, nome, telefone, senha });
+const knex = db;
+
+export class ClienteRepo {
+    static async register({ cpf, email, nome, senha, telefone, tipo, idEmpresa }) {
+        return await knex('Cliente').insert({ cpf, email, nome, senha, telefone, tipo, idEmpresa });
+    }
+
+    static async updateOneByEmpresa({ cpf, email, nome, telefone, idEmpresa, id }) {
+        return await knex('Cliente').where({ idEmpresa, id }).update({ cpf, email, nome, telefone });
     }
 
     static async deleteById(id) {
         return await knex('Cliente').where({ id }).delete();
+    }
+
+    static async deleteOneByEmpresaAndTipo({ id, idEmpresa, tipo }) {
+        return await knex('Cliente').where({ id, idEmpresa, tipo }).delete();
     }
 
     static async getByEmail(email) {
@@ -27,6 +37,16 @@ class ClienteRepo {
                 'Cliente.tipo'
             ).first();
     }
+    static async getByEmpresa(empresa) {
+        return await knex('Cliente')
+            .where({ 'Cliente.idEmpresa': empresa })
+            .select(
+                'Cliente.id',
+                'Cliente.cpf',
+                'Cliente.email',
+                'Cliente.nome',
+                'Cliente.telefone',
+                'Cliente.tipo'
+            );
+    }
 }
-
-module.exports = ClienteRepo;

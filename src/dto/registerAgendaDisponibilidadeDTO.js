@@ -2,7 +2,7 @@ const CPFValidate = require("../validate/CPFValidate");
 const NumberValidate = require("../validate/NumberValidate");
 const StringValidate = require("../validate/StringValidate");
 
-class RegisterFuncionarioDTO {
+export class RegisterFuncionarioDTO {
     constructor(servico) {
         if((new NumberValidate(servico.idServico)).validate().result()){
             this.idServico = servico.idServico;
@@ -21,4 +21,3 @@ class RegisterFuncionarioDTO {
         }
     }
 }
-module.exports = RegisterFuncionarioDTO;

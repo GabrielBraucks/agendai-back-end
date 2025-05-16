@@ -1,4 +1,4 @@
-class CPFValidate {
+export class CPFValidate {
     constructor(cpf) {
         this.cpf = cpf;
         this.isValid = true;
@@ -71,5 +71,3 @@ class CPFValidate {
         return this.isValid;
     }
 }
-
-module.exports = CPFValidate;

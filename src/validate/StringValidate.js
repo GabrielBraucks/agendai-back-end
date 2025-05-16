@@ -1,4 +1,4 @@
-class StringValidate {
+export class StringValidate {
     constructor(str) {
         this.str = str;
         this.isValid = true;
@@ -39,5 +39,3 @@ class StringValidate {
         return this.isValid;
     }
 }
-
-module.exports = StringValidate;

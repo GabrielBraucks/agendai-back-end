@@ -1,0 +1,52 @@
+@layout.admin({ title: "Welcome page title" })
+@slot('meta')
+<meta name="description" content="A welcome page made with EdgeJS">
+@endslot
+
+@slot('main')
+<!-- Botão para criar novo -->
+<div class="flex justify-end mb-4">
+    <button class="btn btn-primary" onclick="abrirModalCriar()">+ Novo Cliente</button>
+</div>
+
+<!-- Tabela -->
+<div class="overflow-x-auto">
+    <table class="table table-zebra w-full" id="tabela-funcionarios">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-body">
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de Criar/Editar -->
+<dialog id="modal-cliente" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modal-titulo">Novo Funcionário</h3>
+        <form id="form-cliente" class="space-y-2" enctype="multipart/form-data">
+            <input type="hidden" id="cliente-id" />
+            <input type="text" placeholder="Nome" class="input input-bordered w-full" id="nome" required />
+            <input type="text" placeholder="CPF" class="input input-bordered w-full" id="cpf" required />
+            <input type="email" placeholder="Email" class="input input-bordered w-full" id="email" required />
+            <input type="text" placeholder="Telefone" class="input input-bordered w-full" id="telefone" />
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+</dialog>
+
+<script src="/js/empresa_clientes_script.js"></script>
+
+@endslot
+
+@end

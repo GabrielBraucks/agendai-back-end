@@ -1,23 +1,36 @@
-const ClienteRepo = require('../repository/ClienteRepo');
-const { hashSenha, compararSenha } = require('../utils/bcrypt');
-const { generateToken } = require('../utils/jwt');
+import { ClienteRepo } from '../repository/ClienteRepo.js';
+import { hashSenha, compararSenha } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
 
-async function register(data) {
-    const { cpf, email, nome, senha, endereco } = data;
+export async function register(data) {
+    const { cpf, email, nome, senha, telefone, tipo, idEmpresa } = data;
     const senhaHash = await hashSenha(senha);
 
-    await ClienteRepo.register({ cpf, email, nome, senha: senhaHash, endereco });
+    await ClienteRepo.register({ cpf, email, nome, senha: senhaHash, tipo, telefone, idEmpresa });
 }
 
-async function deleteById(id) {
+export async function updateInterno(data) {
+    const { cpf, email, nome, telefone, tipo, idEmpresa, id } = data;
+
+    await ClienteRepo.updateOneByEmpresa({ cpf, email, nome, telefone, tipo, idEmpresa, id });
+}
+export async function deleteByIdInterno({id, idEmpresa, tipo}) {
+    await ClienteRepo.deleteOneByEmpresaAndTipo({id, idEmpresa, tipo});
+}
+
+export async function deleteById(id) {
     await ClienteRepo.deleteById(id);
 }
 
-async function getOne(id) {
+export async function getByEmpresa(id) {
+    return await ClienteRepo.getByEmpresa(id);
+}
+
+export async function getOne(id) {
     return await ClienteRepo.getOne(id);
 }
 
-async function login(data) {
+export async function login(data) {
     const { email, senha } = data;
     const cliente = await ClienteRepo.getByEmail(email);
 
@@ -39,5 +52,3 @@ async function login(data) {
         token
     }, null]
 }
-
-module.exports = { register, deleteById, getOne, login };

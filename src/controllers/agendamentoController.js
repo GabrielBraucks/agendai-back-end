@@ -1,8 +1,8 @@
-const RegisterAgendamentoDTO = require('../dto/registerAgendamentoDTO');
-const RegisterClienteAgendamentoDTO = require('../dto/registerClienteAgendamentoDTO');
-const agendamentoService = require('../service/agendamentoService');
+import {RegisterAgendamentoDTO} from '../dto/registerAgendamentoDTO.js';
+// const RegisterClienteAgendamentoDTO = require('../dto/registerClienteAgendamentoDTO');
+import * as agendamentoService from '../service/agendamentoService.js';
 
-async function registerAgendamento(req, res) {
+export async function registerAgendamento(req, res) {
     try {
         const dto = new RegisterAgendamentoDTO(req.body);
         await agendamentoService.register({ ...dto });
@@ -17,7 +17,7 @@ async function registerAgendamento(req, res) {
     }
 }
 
-async function registerAgendamentoAndCliente(req, res) {
+export async function registerAgendamentoAndCliente(req, res) {
     try {
         const dto = new RegisterClienteAgendamentoDTO(req.body);
         await agendamentoService.registerCliente({ ...dto });
@@ -31,7 +31,7 @@ async function registerAgendamentoAndCliente(req, res) {
     }
 }
 
-async function deleteAgendamentoById(req, res) {
+export async function deleteAgendamentoById(req, res) {
     try {
         const id = Number(req.params.id);
         await agendamentoService.deleteById(id);
@@ -45,7 +45,7 @@ async function deleteAgendamentoById(req, res) {
     }
 }
 
-async function listAgendamentos(req, res) {
+export async function listAgendamentos(req, res) {
     try {
         const result = await agendamentoService.getByIdEmpresa(Number(req.params.idEmpresa));
         res.status(201).json(result);
@@ -58,7 +58,7 @@ async function listAgendamentos(req, res) {
     }
 }
 
-async function getOneAgendamento(req, res) {
+export async function getOneAgendamento(req, res) {
     try {
         const result = await agendamentoService.getOne(Number(req.params.id));
         res.status(201).json(result);
@@ -70,12 +70,4 @@ async function getOneAgendamento(req, res) {
             res.status(500).json({ error: 'Erro ao consultar serviço.' });
         }
     }
-}
-
-module.exports = {
-    registerAgendamento,
-    registerAgendamentoAndCliente,
-    deleteAgendamentoById,
-    listAgendamentos,
-    getOneAgendamento
 }

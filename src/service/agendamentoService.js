@@ -1,25 +1,24 @@
-const AgendamentoRepo = require('../repository/AgendamentoRepo');
-const ClienteRepo = require('../repository/ClienteRepo');
+import {AgendamentoRepo} from '../repository/AgendamentoRepo.js';
+import {ClienteRepo} from '../repository/ClienteRepo.js';
 
-async function register({ email, idServico, data, horario }) {
+export async function register({ email, idServico, data, horario }) {
     const idCliente = await ClienteRepo.getByEmail(email);
-    console.log(idCliente);
     await AgendamentoRepo.register({ idCliente: idCliente.id, idServico, data, horario });
 }
 
-async function deleteById(id) {
+export async function deleteById(id) {
     return await AgendamentoRepo.deleteById(id);
 }
 
-async function getByIdEmpresa(idEmpresa) {
+export async function getByIdEmpresa(idEmpresa) {
     return await AgendamentoRepo.getByIdEmpresa(idEmpresa);
 }
 
-async function getOne(id) {
+export async function getOne(id) {
     return await AgendamentoRepo.getOne(id);
 }
 
-async function registerCliente({
+export async function registerCliente({
     idServico, data, horario,
     cliente: {
         email, cpf, nome, telefone, senha
@@ -37,5 +36,3 @@ async function registerCliente({
     
     return await AgendamentoRepo.register({ idCliente: novo_cliente, idServico, data, horario });
 }
-
-module.exports = { register, deleteById, getByIdEmpresa, registerCliente, getOne };

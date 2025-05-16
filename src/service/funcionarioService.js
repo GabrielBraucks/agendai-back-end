@@ -1,35 +1,33 @@
-const { hashSenha, compararSenha } = require('../utils/bcrypt');
-const { generateToken } = require('../utils/jwt');
+import { hashSenha, compararSenha } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
 
-const FuncionarioRepo = require('../repository/FuncionarioRepo');
+import { FuncionarioRepo } from '../repository/FuncionarioRepo.js';
 
-async function register(data) {
-    const { cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha } = data;
+export async function register(data) {
+    const { cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha, perfil } = data;
     const senhaHash = await hashSenha(senha);
-    await FuncionarioRepo.register({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha: senhaHash })
+    return await FuncionarioRepo.register({ cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, senha: senhaHash, perfil })
 }
 
-async function list(idEmpresa) {
+export async function list(idEmpresa) {
     const funcionarios = await FuncionarioRepo.getByEmpresa(idEmpresa);
     return funcionarios;
 }
 
-async function deleteById(id, idEmpresa) {
+export async function deleteById(id, idEmpresa) {
     await FuncionarioRepo.deleteById(id, idEmpresa);
 }
 
-async function update(data) {
-    const { id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo } = data;
-    await FuncionarioRepo.updateByIdAndIdEmpresa({ id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo });
+export async function update(data) {
+    const { id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, perfil } = data;
+    await FuncionarioRepo.updateByIdAndIdEmpresa({ id, cpf, idEmpresa, nome, email, telefone, data_nasc, cargo, perfil });
 }
 
-async function getOne(id, idEmpresa) {
+export async function getOne(id, idEmpresa) {
     const funcionario = await FuncionarioRepo.getOne(id, idEmpresa);
     return funcionario;
 }
-async function changePass(id, idEmpresa, senha) {
+export async function changePass(id, idEmpresa, senha) {
     const senhaHash = await hashSenha(senha);
-    await FuncionarioRepo.updateSenhaByIdAndIdEmpresa({ id, idEmpresa, senha: senhaHash });    
+    await FuncionarioRepo.updateSenhaByIdAndIdEmpresa({ id, idEmpresa, senha: senhaHash });
 }
-
-module.exports = { register, list, deleteById, update, getOne, changePass };

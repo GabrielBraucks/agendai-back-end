@@ -1,8 +1,7 @@
-const servicoService = require('../service/servicoService');
+import * as servicoService from '../service/servicoService.js';
+import {RegisterServicoDTO} from '../dto/registerServicoDTO.js'
 
-const RegisterServicoDTO = require("../dto/registerServicoDTO");
-
-async function registerServico(req, res) {
+export async function registerServico(req, res) {
     try {
         const dto = new RegisterServicoDTO(req.body);
         await servicoService.register({ ...dto, idEmpresa: req.user.id });
@@ -17,7 +16,7 @@ async function registerServico(req, res) {
     }
 }
 
-async function updateServico(req, res) {
+export async function updateServico(req, res) {
     try {
         const dto = new RegisterServicoDTO(req.body);
         const id = Number(req.params.id);
@@ -34,7 +33,7 @@ async function updateServico(req, res) {
     }
 }
 
-async function deleteServico(req, res) {
+export async function deleteServico(req, res) {
     try {
         const id = Number(req.params.id);
         await servicoService.deletebyId(id, req.user.id);
@@ -49,7 +48,7 @@ async function deleteServico(req, res) {
     }
 }
 
-async function listServico(req, res) {
+export async function listServico(req, res) {
     try {
         const result = await servicoService.listByIdEmpresa(Number(req.params.idEmpresa));
         res.status(201).json(result);
@@ -63,7 +62,7 @@ async function listServico(req, res) {
     }
 }
 
-async function getOneServico(req, res) {
+export async function getOneServico(req, res) {
     try {
         const result = await servicoService.getOne(Number(req.params.id));
         res.status(201).json(result);
@@ -76,11 +75,3 @@ async function getOneServico(req, res) {
         }
     }
 }
-
-module.exports = {
-    registerServico,
-    deleteServico,
-    listServico,
-    updateServico,
-    getOneServico
-};

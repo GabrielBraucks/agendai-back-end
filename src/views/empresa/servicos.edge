@@ -1,0 +1,43 @@
+@layout.admin({ title: "Welcome page title" })
+@slot('meta')
+<meta name="description" content="A welcome page made with EdgeJS">
+@endslot
+
+@slot('main')
+<!-- Botão para criar novo -->
+<div class="flex justify-end mb-4">
+    <button class="btn btn-primary" onclick="abrirModalCriar()">+ Novo Serviço</button>
+</div>
+<ul id="lista-servicos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 list-none px-4">
+    <!-- Cards vão aparecer aqui -->
+</ul>
+
+<!-- Modal de Criar/Editar -->
+<dialog id="modal-servico" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modal-titulo">Novo Serviço</h3>
+        <form id="form-servico" class="space-y-2" enctype="multipart/form-data">
+            <input type="hidden" id="serv-id" />
+            <input type="text" placeholder="Nome" class="input input-bordered w-full" id="nome" required />
+            <input type="text" placeholder="Categoria" class="input input-bordered w-full" id="categoria" required />
+            <input type="number" placeholder="Duração" class="input input-bordered w-full" id="duracao" required />
+            <input type="number" placeholder="Preço" class="input input-bordered w-full" id="preco" required />
+            <select class="select" id="funcionario">
+                <option disabled selected>Escolha um funcionario</option>
+            </select>
+
+            <input type="file" class="file-input file-input-bordered w-full" id="foto" accept="image/*" />
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+</dialog>
+<script src="/js/empresa_servicos_script.js"></script>
+
+@endslot
+
+@end

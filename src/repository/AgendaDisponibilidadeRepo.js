@@ -1,6 +1,8 @@
-const knex = require('../database/knexSetup').db;
+import { db } from "../database/knexSetup.js";
 
-class AgendaDisponibilidadeRepo {
+const knex = db;
+
+export class AgendaDisponibilidadeRepo {
     static async register({ idServico, cpfFuncionario, diaSemana, horarioInicio, horarioFim }) {
         await knex('Agenda_de_disponibilidade').insert({ idServico, cpfFuncionario, diaSemana, horarioInicio, horarioFim });
     }
@@ -72,5 +74,3 @@ class AgendaDisponibilidadeRepo {
                 'Empresa.nome as empresa').first();
     }
 }
-
-module.exports = AgendaDisponibilidadeRepo;

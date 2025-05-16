@@ -1,5 +1,5 @@
-const agendaDisponibilidadeService = require('../service/agendaDisponibilidadeService');
-const RegisterAgendaDisponibilidadeDTO = require('../dto/registerAgendaDisponibilidadeDTO');
+import agendaDisponibilidadeService from '../service/agendaDisponibilidadeService.js';
+import RegisterAgendaDisponibilidadeDTO from '../dto/registerAgendaDisponibilidadeDTO.js';
 
 async function registerAgendaDisponibilidade(req, res) {
     try {

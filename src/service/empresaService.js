@@ -1,16 +1,16 @@
-const { hashSenha, compararSenha } = require('../utils/bcrypt');
-const { generateToken } = require('../utils/jwt');
+import { hashSenha, compararSenha } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
 
-const EmpresaRepo = require('../repository/EmpresaRepo');
+import {EmpresaRepo} from '../repository/EmpresaRepo.js';
 
-async function register(data) {
-    const { cnpj, email, nome, senha, endereco } = data;
+export async function register(data) {
+    const { cnpj, email, nome, senha, endereco, perfil } = data;
     const senhaHash = await hashSenha(senha);
 
-    await EmpresaRepo.register({ cnpj, email, nome, senha: senhaHash, endereco })
+    return await EmpresaRepo.register({ cnpj, email, nome, senha: senhaHash, endereco, perfil })
 }
 
-async function login(data) {
+export async function login(data) {
     const { email, senha } = data;
     const empresa = await EmpresaRepo.getByEmail(email);
 
@@ -33,7 +33,7 @@ async function login(data) {
     }, null]
 }
 
-async function profile(id) {
+export async function profile(id) {
     const empresa = await EmpresaRepo.getById(id);
 
     if (!empresa) {
@@ -42,10 +42,9 @@ async function profile(id) {
 
     return [{
         user: 'empresa',
+        id,
         empresa: {
             cnpj: empresa.cnpj, nome: empresa.nome, email: empresa.email, telefone: empresa.telefone
         },
     }, null]
 }
-
-module.exports = { register, login, profile };

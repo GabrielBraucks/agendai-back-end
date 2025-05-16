@@ -1,26 +1,23 @@
-const ServicoRepo = require('../repository/ServicoRepo');
-
-async function register(data) {
+import {ServicoRepo} from '../repository/ServicoRepo.js'
+export async function register(data) {
     await ServicoRepo.register(data)
 }
-async function update(data) {
+export async function update(data) {
     await ServicoRepo.updateByIdAndIdEmpresa(data)
 }
 
-async function deletebyId(id, idEmpresa) {
+export async function deletebyId(id, idEmpresa) {
     await ServicoRepo.deleteByIdAndIdEmpresa(id, idEmpresa)
 }
 
-async function list() {
+export async function list() {
     return await ServicoRepo.getAll()
 }
 
-async function listByIdEmpresa(idEmpresa) {
+export async function listByIdEmpresa(idEmpresa) {
     return await ServicoRepo.getByIdEmpresa(idEmpresa);
 }
 
-async function getOne(id) {
+export async function getOne(id) {
     return await ServicoRepo.getOne(id)
 }
-
-module.exports = { register, deletebyId, list, update, getOne, listByIdEmpresa };

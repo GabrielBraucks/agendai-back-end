@@ -1,0 +1,63 @@
+@layout.admin({ title: "Welcome page title" })
+@slot('meta')
+<meta name="description" content="A welcome page made with EdgeJS">
+@endslot
+
+@slot('main')
+<!-- Botão para criar novo -->
+<div class="flex justify-end mb-4">
+    <button class="btn btn-primary" onclick="abrirModalCriar()">+ Novo Funcionário</button>
+</div>
+
+<!-- Tabela -->
+<div class="overflow-x-auto">
+    <table class="table table-zebra w-full" id="tabela-funcionarios">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data Nasc.</th>
+                <th>Cargo</th>
+                <th>Empresa</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-body">
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de Criar/Editar -->
+<dialog id="modal-funcionario" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modal-titulo">Novo Funcionário</h3>
+        <form id="form-funcionario" class="space-y-2" enctype="multipart/form-data">
+            <input type="hidden" id="func-id" />
+            <input type="text" placeholder="Nome" class="input input-bordered w-full" id="nome" required />
+            <input type="text" placeholder="CPF" class="input input-bordered w-full" id="cpf" required />
+            <input type="email" placeholder="Email" class="input input-bordered w-full" id="email" required />
+            <input type="text" placeholder="Telefone" class="input input-bordered w-full" id="telefone" />
+            <input type="date" class="input input-bordered w-full" id="data_nasc" />
+            <input type="text" placeholder="Cargo" class="input input-bordered w-full" id="cargo" />
+            <input type="text" placeholder="Senha" class="input input-bordered w-full" id="senha" />
+
+            <!-- 📷 Novo campo de imagem -->
+            <input type="file" class="file-input file-input-bordered w-full" id="perfil" accept="image/*" />
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+</dialog>
+
+<script src="/js/empresa_funcionarios_script.js"></script>
+
+@endslot
+
+@end

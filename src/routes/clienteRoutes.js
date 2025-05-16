@@ -1,12 +1,16 @@
-const express = require('express');
-const { authJwt } = require('../utils/jwt');
+import { Router } from 'express';
+import { authJwt } from '../utils/jwt.js';
+import { registerCliente, loginCliente, deleteCliente, getOneCliente, registerClienteInterno, listClienteInterno, updateClienteInterno, deleteClienteInterno } from '../controllers/clienteController.js';
 
-const routes = express.Router();
-const controller = require('../controllers/clienteController');
+const routes = Router();
 
-routes.post('/register', controller.registerCliente);
-routes.post('/login', controller.loginCliente);
-routes.delete('/:id', authJwt, controller.deleteCliente);
-routes.get('/consultar/:id', authJwt, controller.getOneCliente);
+routes.post('/register', registerCliente);
+routes.post('/register/interno',authJwt, registerClienteInterno);
+routes.post('/login', loginCliente);
+routes.delete('/:id', authJwt, deleteCliente);
+routes.get('/consultar/:id', authJwt, getOneCliente);
+routes.get('/interno', authJwt, listClienteInterno);
+routes.put('/interno/:id', authJwt, updateClienteInterno);
+routes.delete('/interno/:id', authJwt, deleteClienteInterno);
 
-module.exports = routes;
+export default routes;

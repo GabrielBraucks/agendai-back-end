@@ -1,4 +1,4 @@
-class NumberValidate {
+export class NumberValidate {
     constructor(num) {
         this.num = num;
         this.isValid = true;
@@ -38,5 +38,3 @@ class NumberValidate {
         return this.isValid;
     }
 }
-
-module.exports = NumberValidate;
