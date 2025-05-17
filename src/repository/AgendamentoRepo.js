@@ -13,9 +13,11 @@ class AgendamentoRepo {
         return await knex('Agendamento')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .where('Empresa.id', idEmpresa)
             .select(
                 'Agendamento.*',
+                'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
                 'Servico.duracao as duracao',
                 'Empresa.nome as nomeEmpresa',
