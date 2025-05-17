@@ -38,7 +38,7 @@ function fecharModal() {
 
 async function carregarFuncionarios() {
   const token = getCookie("token");
-  const res = await fetch('/api/funcionarios/listarPelaEmpresa/1', {
+  const res = await fetch(`/api/funcionarios/listarPelaEmpresa/${localStorage.getItem('id')}`, {
     headers: { Authorization: `Bearer ${token}` }
   });
   const dados = await res.json();

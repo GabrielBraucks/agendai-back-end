@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authJwt } from '../utils/jwt.js';
-import { registerAgendamento } from '../controllers/agendamentoController.js';
+import { listAgendamentos, registerAgendamento } from '../controllers/agendamentoController.js';
 
 const routes = Router();
 
