@@ -17,6 +17,16 @@ async function getOne(id) {
     return await ClienteRepo.getOne(id);
 }
 
+async function getByEmail(email) {
+    const cliente = await ClienteRepo.getByEmail(email);
+
+    if (!cliente) {
+        return [null, { statusCode: 401, error: 'Cliente não encontrado' }];
+    }
+
+    return [{ message: 'Cliente encontrato!', cliente: { cpf: cliente.cpf, nome: cliente.nome, email: cliente.email, telefone: cliente.telefone } }, null]
+}
+
 async function login(data) {
     const { email, senha } = data;
     const cliente = await ClienteRepo.getByEmail(email);
@@ -40,4 +50,4 @@ async function login(data) {
     }, null]
 }
 
-module.exports = { register, deleteById, getOne, login };
+module.exports = { register, deleteById, getOne, login, getByEmail };

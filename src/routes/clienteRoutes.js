@@ -8,5 +8,6 @@ routes.post('/register', controller.registerCliente);
 routes.post('/login', controller.loginCliente);
 routes.delete('/:id', authJwt, controller.deleteCliente);
 routes.get('/consultar/:id', authJwt, controller.getOneCliente);
+routes.get('/consultar_por_email', authJwt, controller.getByEmail);
 
 module.exports = routes;

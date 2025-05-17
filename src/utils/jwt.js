@@ -19,7 +19,7 @@ function authJwt(req, res, next) {
             return res.status(403).json({ error: 'Token inválido ou expirado.' });
         }
         
-        console.log(decoded);
+        // console.log(decoded);
         req.user = decoded; // Adiciona o usuário no request
         next();
     });

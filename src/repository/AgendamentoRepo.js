@@ -13,13 +13,22 @@ class AgendamentoRepo {
         return await knex('Agendamento')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .where('Empresa.id', idEmpresa)
             .select(
                 'Agendamento.*',
+                'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
+                'Servico.duracao as duracao',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
             );
+    }
+    static async getByIdClienteAndPeriodo(idCliente, data, horarioInicio, horarioFim) {
+        return await knex('Agendamento')
+            .where('data', '>=', data)
+            .andWhereBetween('horario', [horarioInicio, horarioFim])
+            .select()
     }
 
     static async getOne(id) {

@@ -18,6 +18,7 @@ async function createTables() {
                 table.string('nome', 45);
                 table.string('telefone', 45);
                 table.string('senha', 45);
+                table.integer('idEmpresa').references('id').inTable('Empresa');
                 table.integer('tipo').notNullable().defaultTo(0);
             });
         }

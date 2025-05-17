@@ -44,19 +44,34 @@ async function getOneCliente(req, res) {
     }
 }
 
-async function loginCliente(req, res) {
-  try {
-    const [ result, err ] = await clienteService.login(req.body);
+async function getByEmail(req, res) {
+    try {
+        const [result, err] = await clienteService.getByEmail(req.body.email);
 
-    if (err) {
-      return res.status(err.statusCode).json(err);
+        if (err) {
+            return res.status(err.statusCode).json(err);
+        }
+
+        return res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao consultar cliente' });
     }
-
-    return res.status(201).json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao fazer login' });
-  }
 }
 
-module.exports = {  registerCliente, deleteCliente, getOneCliente, loginCliente };
+async function loginCliente(req, res) {
+    try {
+        const [result, err] = await clienteService.login(req.body);
+
+        if (err) {
+            return res.status(err.statusCode).json(err);
+        }
+
+        return res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao fazer login' });
+    }
+}
+
+module.exports = { registerCliente, deleteCliente, getOneCliente, loginCliente, getByEmail };
