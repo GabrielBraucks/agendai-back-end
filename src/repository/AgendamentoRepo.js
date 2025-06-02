@@ -43,6 +43,22 @@ class AgendamentoRepo {
                 'Empresa.id as idEmpresa'
             ).first();
     }
+
+    static async getByMonthAndIdEmpresa(idEmpresa, month) {
+        return await knex('Agendamento')
+            .join('Servico', 'Agendamento.idServico', 'Servico.id')
+            .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .where('Empresa.id', idEmpresa)
+            .whereRaw("strftime('%Y-%m', Agendamento.data) = ?", [month])
+    }
+
+    static async getByYearAndIdEmpresa(idEmpresa, year) {
+        return await knex('Agendamento')
+            .join('Servico', 'Agendamento.idServico', 'Servico.id')
+            .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
+            .where('Empresa.id', idEmpresa)
+            .whereRaw("strftime('%Y', Agendamento.data) = ?", [year])
+    }
 }
 
 module.exports = AgendamentoRepo;

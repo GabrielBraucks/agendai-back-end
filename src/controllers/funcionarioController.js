@@ -24,7 +24,7 @@ async function updateFuncionario(req, res) {
         const dto = new UpdateFuncionarioDTO(req.body);
         const id = Number(req.params.id);
 
-        await funcionarioService.update({ ...dto, id , idEmpresa:req.user.id});
+        await funcionarioService.update({ ...dto, id, idEmpresa: req.user.id });
         res.status(201).json({ message: 'Funcionário atualizado com sucesso!' });
     } catch (error) {
         console.error(error);
