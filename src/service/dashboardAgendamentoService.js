@@ -12,4 +12,10 @@ async function getByYearAndIdEmpresa(idEmpresa, year) {
     return [agendamentos, null]
 }
 
-module.exports = { getByMonthAndIdEmpresa, getByYearAndIdEmpresa };
+async function getByIdEmpresa(idEmpresa) {
+    const agendamentos = await AgendamentoRepo.getByIdEmpresa(idEmpresa);
+
+    return [agendamentos, null]
+}
+
+module.exports = { getByMonthAndIdEmpresa, getByYearAndIdEmpresa, getByIdEmpresa };

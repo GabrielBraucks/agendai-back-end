@@ -1,5 +1,5 @@
 const DashboardDTO = require('../dto/dashboardDTO');
-const dashboardService = require('../service/dashboardService');
+const dashboardService = require('../service/dashboardAgendamentoService');
 
 async function getByMonthAndIdEmpresa(req, res) {
     try {
@@ -12,7 +12,7 @@ async function getByMonthAndIdEmpresa(req, res) {
 
         if (err) return res.status(500).json(err);
 
-        return res.status(201).json({ result: result.length });
+        return res.status(201).json({ quantidede: result.length, agendamentos: result });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao consultar Agendamentos' });
@@ -30,11 +30,28 @@ async function getByYearAndIdEmpresa(req, res) {
 
         if (err) return res.status(500).json(err);
 
-        return res.status(201).json({ result: result.length });
+        return res.status(201).json({ quantidede: result.length, agendamentos: result });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao consultar Agendamentos' });
     }
 }
 
-module.exports = { getByMonthAndIdEmpresa, getByYearAndIdEmpresa };
+async function getByIdEmpresa(req, res) {
+    try {
+        if (req.user.role != 'Empresa') return res.status(500).json({ error: 'O usuário logado precisa ser do tipo Empresa' });
+
+        const idEmpresa = req.user.id;
+
+        const [result, err] = await dashboardService.getByIdEmpresa(idEmpresa);
+
+        if (err) return res.status(500).json(err);
+
+        return res.status(201).json({ quantidede: result.length, agendamentos: result });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao consultar Agendamentos' });
+    }
+}
+
+module.exports = { getByMonthAndIdEmpresa, getByYearAndIdEmpresa, getByIdEmpresa };
