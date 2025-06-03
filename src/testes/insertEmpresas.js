@@ -3,7 +3,7 @@ const { hashSenha } = require('../utils/bcrypt');
 
 module.exports = async () => {
     const senha = await hashSenha('123123');
-    await knex('Empresa').insert([
+    return await knex('Empresa').insert([
         {
             id: 1,
             cnpj: '45723174000110',

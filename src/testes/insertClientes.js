@@ -18,5 +18,5 @@ const clientes = cpfsValidos.map((cpf, i) => ({
 }));
 
 module.exports = async () => {
-    await knex('Cliente').insert(clientes);
+    return await knex('Cliente').insert(clientes);
 }

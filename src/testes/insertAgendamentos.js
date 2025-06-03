@@ -23,5 +23,5 @@ meses.forEach(({ mes, dias }) => {
 });
 
 module.exports = async () => {
-    await knex('Agendamento').insert(agendamentos);
+    return await knex('Agendamento').insert(agendamentos);
 }

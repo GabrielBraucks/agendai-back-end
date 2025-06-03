@@ -1,7 +1,7 @@
 const knex = require('../database/knexSetup').db;
 
 module.exports = async () => {
-    await knex('Servico').insert([
+    return await knex('Servico').insert([
         {
             id: 1,
             idEmpresa: 1,
