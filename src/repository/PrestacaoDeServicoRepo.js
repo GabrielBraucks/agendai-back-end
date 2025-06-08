@@ -1,82 +1,80 @@
 const knex = require('../database/knexSetup').db;
 
-class AgendamentoRepo {
-    static async register({ idCliente, idServico, data, horario }) {
-        await knex('Agendamento').insert({ idCliente, idServico, data, horario });
-    }
-
-    static async deleteById(id) {
-        return await knex('Agendamento').where({ id }).delete();
-    }
-
+class PrestacaoDeServico {
     static async getByIdEmpresa(idEmpresa) {
-        return await knex('Agendamento')
+        return await knex('Prestacao_de_servico')
+            .join('Agendamento', 'Prestacao_de_servico.idAgendamento', 'Agendamento.id')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
             .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .where('Empresa.id', idEmpresa)
             .select(
-                'Agendamento.*',
+                'Prestacao_de_servico.*',
+                'Agendamento.data as dataAgendamento',
                 'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
-                'Servico.duracao as duracao',
+                'Servico.preco as precoServico',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
             );
     }
-    static async getByIdClienteAndPeriodo(idCliente, data, horarioInicio, horarioFim) {
-        return await knex('Agendamento')
-            .where('data', '>=', data)
-            .andWhereBetween('horario', [horarioInicio, horarioFim])
-            .select()
-    }
 
-    static async getOne(id) {
-        return await knex('Agendamento')
+    static async getByDayAndIdEmpresa(idEmpresa, day) {
+        return await knex('Prestacao_de_servico')
+            .join('Agendamento', 'Prestacao_de_servico.idAgendamento', 'Agendamento.id')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
-            .where('Agendamento.id', id)
+            .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
+            .where('Empresa.id', idEmpresa)
+            .whereRaw("strftime('%Y-%m-%d', Agendamento.data) = ?", [day])
             .select(
-                'Agendamento.*',
+                'Prestacao_de_servico.*',
+                'Agendamento.data as dataAgendamento',
+                'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
+                'Servico.preco as precoServico',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
-            ).first();
+            );
     }
 
     static async getByMonthAndIdEmpresa(idEmpresa, month) {
-        return await knex('Agendamento')
+        return await knex('Prestacao_de_servico')
+            .join('Agendamento', 'Prestacao_de_servico.idAgendamento', 'Agendamento.id')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
             .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .where('Empresa.id', idEmpresa)
             .whereRaw("strftime('%Y-%m', Agendamento.data) = ?", [month])
             .select(
-                'Agendamento.*',
+                'Prestacao_de_servico.*',
+                'Agendamento.data as dataAgendamento',
                 'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
-                'Servico.duracao as duracao',
+                'Servico.preco as precoServico',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
             );
     }
 
     static async getByYearAndIdEmpresa(idEmpresa, year) {
-        return await knex('Agendamento')
+        return await knex('Prestacao_de_servico')
+            .join('Agendamento', 'Prestacao_de_servico.idAgendamento', 'Agendamento.id')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
             .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .where('Empresa.id', idEmpresa)
             .whereRaw("strftime('%Y', Agendamento.data) = ?", [year])
             .select(
-                'Agendamento.*',
+                'Prestacao_de_servico.*',
+                'Agendamento.data as dataAgendamento',
                 'Cliente.nome as nomeCliente',
                 'Servico.nome as nomeServico',
-                'Servico.duracao as duracao',
+                'Servico.preco as precoServico',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'
             );
     }
 }
 
-module.exports = AgendamentoRepo;
+module.exports = PrestacaoDeServico;
