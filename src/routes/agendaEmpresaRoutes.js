@@ -6,7 +6,7 @@ const controller = require('../controllers/agendaEmpresaController');
 routes.post('/', authJwt, controller.registerAgendaEmpresa);
 routes.get('/', authJwt, controller.listAgendaEmpresa);
 // routes.put('/:id', authJwt, controller.updateAgendaDisponibilidade);
-// routes.delete('/:id', authJwt, controller.deleteFuncionario);
+routes.delete('/:id', authJwt, controller.removeAgendaEmpresa);
 // routes.put('/:id', authJwt, controller.updateFuncionario);
 // routes.get('/:id', authJwt, controller.getOneFuncionario);
 

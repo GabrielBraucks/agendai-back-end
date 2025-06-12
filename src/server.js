@@ -2,7 +2,7 @@ require('dotenv').config;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const session = require('express-session');
 const empresaRoutes = require('./routes/empresaRoutes');
 const servicoRoutes = require('./routes/servicoRoutes');
 const funcionarioRoutes = require('./routes/funcionarioRoutes');
@@ -12,10 +12,18 @@ const agendamentoRoutes = require('./routes/agendamentoRoutes');
 const agendaEmpresaRoutes = require('./routes/agendaEmpresaRoutes');
 const clienteInternoRoutes = require('./routes/clienteInternoRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const conexaoRoutes = require('./routes/conexaoRoutes');
+
+const passport = require('./config/passport');
 
 const { createTables } = require('./database/knexSetup');
 const app = express();
-
+app.use(session({
+    secret: 'sua_chave_secreta_segura', // Troque por uma chave forte
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 15 * 60 * 1000 } // 15 minutos, por exemplo
+}));
 // MIDDLEWARE
 app.use(cors({
     origin: '*',
@@ -23,6 +31,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
 // ROTAS
 app.use('/empresa', empresaRoutes);
@@ -34,6 +43,7 @@ app.use('/cliente_interno', clienteInternoRoutes);
 app.use('/agendamentos', agendamentoRoutes);
 app.use('/agenda_empresa', agendaEmpresaRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/conexao', conexaoRoutes);
 
 // Middleware global para erros inesperados
 app.use((err, req, res, next) => {

@@ -2,10 +2,10 @@ const AgendamentoRepo = require('../repository/AgendamentoRepo');
 const ClienteRepo = require('../repository/ClienteRepo');
 const ServicoRepo = require('../repository/ServicoRepo');
 
-async function register({ email, idServico, data, horario }) {
-    const idCliente = await ClienteRepo.getByEmail(email);
+async function register({ idCliente, idServico, data, horario }) {
+    // const idCliente = await ClienteRepo.getByEmail(email);
     // console.log(idCliente);
-    await AgendamentoRepo.register({ idCliente: idCliente.id, idServico, data, horario });
+    await AgendamentoRepo.register({ idCliente, idServico, data, horario });
 }
 
 async function deleteById(id) {
@@ -13,7 +13,17 @@ async function deleteById(id) {
 }
 
 async function getByIdEmpresa(idEmpresa) {
-    return await AgendamentoRepo.getByIdEmpresa(idEmpresa);
+    const agendamentos = await AgendamentoRepo.getByIdEmpresa(idEmpresa);
+    return agendamentos.map(agendamento => {
+        const inicio = new Date(`${agendamento.data}T${agendamento.horario}Z`);
+        const fim = new Date(inicio.getTime() + parseInt(agendamento.duracao) * 60000);
+        return {
+            ...agendamento,
+            nomeFuncionario: 'nomeFuncionario',
+            inicio: inicio.toISOString(),
+            fim: fim.toISOString()
+        };
+    });
 }
 
 async function getOne(id) {

@@ -18,7 +18,6 @@ class AgendamentoRepo {
             .select(
                 'Agendamento.*',
                 'Cliente.nome as nomeCliente',
-                'Cliente.email as emailCliente',
                 'Servico.nome as nomeServico',
                 'Servico.duracao as duracao',
                 'Empresa.nome as nomeEmpresa',
@@ -35,13 +34,10 @@ class AgendamentoRepo {
     static async getOne(id) {
         return await knex('Agendamento')
             .join('Servico', 'Agendamento.idServico', 'Servico.id')
-            .join('Cliente', 'Agendamento.idCliente', 'Cliente.id')
             .join('Empresa', 'Servico.idEmpresa', 'Empresa.id')
             .where('Agendamento.id', id)
             .select(
                 'Agendamento.*',
-                'Cliente.nome as nomeCliente',
-                'Cliente.email as emailCliente',
                 'Servico.nome as nomeServico',
                 'Empresa.nome as nomeEmpresa',
                 'Empresa.id as idEmpresa'

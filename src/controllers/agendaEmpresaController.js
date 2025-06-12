@@ -24,7 +24,20 @@ async function listAgendaEmpresa(req, res) {
         }
     }
 }
+async function removeAgendaEmpresa(req, res) {
+    try {
+        const { id } = req.params;
+        await agendaEmpresaService.deleteById({
+            id,
+            idEmpresa: req.user.id
+        });
+        res.status(200).json({ message: 'Agendamento excluído com sucesso!' });
+    } catch (error) {
+        ResponseError(res, error);
+    }
+}
 module.exports = {
     registerAgendaEmpresa,
     listAgendaEmpresa,
+    removeAgendaEmpresa
 }

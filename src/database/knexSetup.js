@@ -107,7 +107,15 @@ async function createTables() {
                 table.string('comentario', 45);
             });
         }
-
+        if (!(await db.schema.hasTable('GoogleUser'))) {
+            await db.schema.createTable('GoogleUser', table => {
+                table.integer('id').primary();
+                table.integer('idEmpresa').references('id').inTable('Empresa');
+                table.json('profile');
+                table.text('accessToken');
+                table.text('refreshToken');
+            });
+        }
         console.log('Tabelas verificadas/criadas com sucesso!');
     } catch (error) {
         console.error('Erro ao criar tabelas:', error);
