@@ -11,10 +11,20 @@ async function registerAgendaEmpresa(req, res) {
         ResponseError(res, error);
     }
 }
+async function updateAgendaEmpresa(req, res) {
+    try {
+        console.log("update agenda");
+        const dto = new RegisterAgendamentoDTO(req.body);
+        await agendaEmpresaService.update({ ...dto, idEmpresa: req.user.id, id: req.params.id });
+        res.status(200).json({ message: 'Agendamento criado com sucesso!' });
+    } catch (error) {
+        ResponseError(res, error);
+    }
+}
 async function listAgendaEmpresa(req, res) {
     try {
         const result = await agendaEmpresaService.list(req.user.id);
-        res.status(200).json(result);
+        res.status(201).json(result);
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
@@ -39,5 +49,6 @@ async function removeAgendaEmpresa(req, res) {
 module.exports = {
     registerAgendaEmpresa,
     listAgendaEmpresa,
-    removeAgendaEmpresa
+    removeAgendaEmpresa,
+    updateAgendaEmpresa
 }

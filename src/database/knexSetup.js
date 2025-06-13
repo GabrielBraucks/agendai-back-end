@@ -82,6 +82,7 @@ async function createTables() {
                 table.integer('idServico').references('id').inTable('Servico');
                 table.date('data');
                 table.time('horario');
+                table.string('googleCalendarEventId').nullable();
             });
         }
 
@@ -90,10 +91,11 @@ async function createTables() {
             await db.schema.createTable('Prestacao_de_servico', table => {
                 table.integer('id').primary();
                 table.integer('idAgendamento').references('id').inTable('Agendamento');
-                table.string('cpfFuncionario', 45).references('cpf').inTable('Funcionario');
-                table.integer('status');
-                table.timestamp('inicio');
-                table.timestamp('termino');
+                table.integer('idFuncionario').references('id').inTable('Funcionario');
+                table.enum('status', ['pendente', 'confirmado', 'cancelado']).notNullable().defaultTo('pendente');
+                table.enum('pagamento', ['pendente', 'pago', 'cancelado']).notNullable().defaultTo('pendente');
+                table.timestamp('inicio').nullable;
+                table.timestamp('termino').nullable;
             });
         }
 

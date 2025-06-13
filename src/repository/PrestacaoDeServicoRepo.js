@@ -1,6 +1,13 @@
 const knex = require('../database/knexSetup').db;
 
 class PrestacaoDeServico {
+
+    static async register({ idAgendamento, idFuncionario, inicio, termino }) {
+        return await knex('Prestacao_de_servico').insert({ idAgendamento, idFuncionario }).returning('*');
+    }
+    static async deleteByIdAgendamento({idAgendamento}) {
+        return await knex('Prestacao_de_servico').where({ idAgendamento }).delete();     
+    }
     static async getByIdEmpresa(idEmpresa) {
         return await knex('Prestacao_de_servico')
             .join('Agendamento', 'Prestacao_de_servico.idAgendamento', 'Agendamento.id')

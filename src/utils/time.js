@@ -13,4 +13,27 @@ function extrairTempo(texto) {
 
     return { horas, minutos };
 }
-module.exports = { extrairTempo };
+
+function addDuration(startTime, duration) {
+    const [startHours, startMinutes, startSeconds] = startTime.split(':').map(Number);
+    const [durationHours, durationMinutes, durationSeconds] = duration.split(':').map(Number);
+
+    let totalSeconds = startSeconds + durationSeconds;
+    let totalMinutes = startMinutes + durationMinutes;
+    let totalHours = startHours + durationHours;
+
+    if (totalSeconds >= 60) {
+        totalMinutes += Math.floor(totalSeconds / 60);
+        totalSeconds %= 60;
+    }
+
+    if (totalMinutes >= 60) {
+        totalHours += Math.floor(totalMinutes / 60);
+        totalMinutes %= 60;
+    }
+
+    const pad = (num) => num.toString().padStart(2, '0');
+
+    return `${pad(totalHours)}:${pad(totalMinutes)}:${pad(totalSeconds)}`;
+}
+module.exports = { extrairTempo, addDuration };

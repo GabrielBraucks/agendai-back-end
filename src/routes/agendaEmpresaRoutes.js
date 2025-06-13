@@ -7,7 +7,7 @@ routes.post('/', authJwt, controller.registerAgendaEmpresa);
 routes.get('/', authJwt, controller.listAgendaEmpresa);
 // routes.put('/:id', authJwt, controller.updateAgendaDisponibilidade);
 routes.delete('/:id', authJwt, controller.removeAgendaEmpresa);
-// routes.put('/:id', authJwt, controller.updateFuncionario);
+routes.put('/:id', authJwt, controller.updateAgendaEmpresa);
 // routes.get('/:id', authJwt, controller.getOneFuncionario);
 
 module.exports = routes;

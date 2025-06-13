@@ -23,7 +23,7 @@ async function updateServico(req, res) {
         const id = Number(req.params.id);
 
         await servicoService.update({ ...dto, idEmpresa: req.user.id, id });
-        res.status(201).json({ message: 'Serviço atualizado com sucesso!' });
+        res.status(200).json({ message: 'Serviço atualizado com sucesso!' });
     } catch (error) {
         console.error(error);
         if (error.type === 'ValidationError') {
